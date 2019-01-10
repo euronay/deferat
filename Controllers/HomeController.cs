@@ -4,21 +4,27 @@ using System.Diagnostics;
 using System.Linq;
 using System.Threading.Tasks;
 using Microsoft.AspNetCore.Mvc;
-using deferat.Models;
+using Deferat.Models;
 using Microsoft.Extensions.Logging;
+using Deferat.Services;
 
-namespace deferat.Controllers
+namespace Deferat.Controllers
 {
     public class HomeController : Controller
     {
         private ILogger _logger;
-        public HomeController(ILogger<HomeController> logger)
+        private IPostService _postService;
+        public HomeController(ILogger<HomeController> logger, IPostService postService)
         {
             _logger = logger;
+            _postService = postService;
         }
         public IActionResult Index()
         {
             _logger.LogDebug("Hello, World");
+
+            ViewData["Post"] = _postService.Posts.First().Title;
+
             return View();
         }
 

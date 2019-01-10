@@ -1,6 +1,6 @@
 using System;
 
-namespace deferat.Models
+namespace Deferat.Models
 {
     public class ErrorViewModel
     {
