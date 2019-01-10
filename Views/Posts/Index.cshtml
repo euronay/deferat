@@ -1,0 +1,9 @@
+@model IEnumerable<PostModel>
+
+@foreach( var post in Model)
+{
+    <h1>@post.Title</h1>
+    
+    @Html.Raw(post.Content)
+}
+

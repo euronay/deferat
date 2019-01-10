@@ -1,5 +1,5 @@
 ---
-title: Test Post
+title: Another Post
 author: James
 date: 2019-01-01
 categories: 
@@ -7,4 +7,4 @@ categories:
     - posts
     - blog 
 ---
-This is a *test* post
+This is a second test post 🎉

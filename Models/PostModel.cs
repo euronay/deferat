@@ -1,4 +1,5 @@
-﻿using System.Collections.Generic;
+﻿using System;
+using System.Collections.Generic;
 
 namespace Deferat.Models
 {
@@ -6,6 +7,7 @@ namespace Deferat.Models
     {
         public string Title { get; set; }
         public string Author { get; set; }
+        public DateTime Date { get; set; }
         public IEnumerable<string> Categories { get; set; }
         public string Content { get; set; }
     }

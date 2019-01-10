@@ -3,7 +3,9 @@ using System.IO;
 using System.Linq;
 using Deferat.Models;
 using Microsoft.Extensions.Logging;
+using YamlDotNet.Serialization;
 using Markdig;
+using YamlDotNet.Serialization.NamingConventions;
 
 namespace Deferat.Services
 {
@@ -30,11 +32,35 @@ namespace Deferat.Services
         {
             _logger.LogInformation($"Loading {path}");
 
-            return new PostModel()
+            string rawMetadata = string.Empty;
+            string rawPost = string.Empty;
+
+            using(var reader = File.OpenText(path))
             {
-                Title = path,
-                Content = Markdig.Markdown.ToHtml(path)
-            };
+                if(reader.ReadLine() != "---")
+                    return null;
+                
+                string line;
+
+                while((line = reader.ReadLine()) != "---")
+                {
+                    rawMetadata += line + "\r\n";
+                }
+
+                rawPost = reader.ReadToEnd();
+            }
+
+            var deserializer = new DeserializerBuilder()
+                .WithNamingConvention(new CamelCaseNamingConvention())
+                .Build();
+
+            var post = deserializer.Deserialize<PostModel>(new StringReader(rawMetadata));
+
+            post.Content = Markdig.Markdown.ToHtml(rawPost);
+
+            _logger.LogInformation($"Loaded {post.Title}");
+
+            return post;
         }
     }
 }
