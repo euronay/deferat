@@ -23,9 +23,19 @@ namespace Deferat.Services
         {
             _logger.LogInformation($"Loading posts from {path}...");
 
-            Posts = Directory.GetDirectories(path)
-                    .Select(directory => Directory.GetFiles(directory, "*.md").First())?
-                    .Select(post => ReadPostFromFile(post));
+            var postDirectories = Directory.GetDirectories(path);
+
+            var posts = new List<PostModel>();
+            foreach(var directory in postDirectories)
+            {
+                var postFile = Directory.GetFiles(directory, "*.md").FirstOrDefault();
+                if(postFile == null)
+                    continue;
+                    
+                posts.Add(ReadPostFromFile(postFile));
+            }
+             
+            Posts = posts;
         }
 
         private PostModel ReadPostFromFile(string path)
