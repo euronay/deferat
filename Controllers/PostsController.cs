@@ -1,4 +1,5 @@
 
+using System.Linq;
 using Deferat.Services;
 using Microsoft.AspNetCore.Mvc;
 
@@ -16,6 +17,15 @@ namespace Deferat.Controllers
         public ActionResult Index()
         {
             return View(_postService.Posts);
+        }
+
+        public ActionResult Post(string id)
+        {
+            var post = _postService.Posts.FirstOrDefault(p => p.Locator.ToLower() == id.ToLower());
+            if(post != null)
+                return View(post);
+
+            throw new System.Exception("?");
         }
 
     }

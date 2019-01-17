@@ -2,7 +2,7 @@
 
 @foreach( var post in Model)
 {
-    <h1>@post.Title</h1>
+    <h1><a asp-controller="Posts" asp-action="Post" asp-route-id="@post.Locator">@post.Title</a></h1>
     
     @Html.Raw(post.Content)
 }

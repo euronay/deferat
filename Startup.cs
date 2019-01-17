@@ -59,11 +59,15 @@ namespace Deferat
             app.UseMvc(routes =>
             {
                 routes.MapRoute(
+                    name: "post",
+                    template: "Posts/{id}",
+                    defaults: new {Controller = "Posts", Action="Post" });
+                routes.MapRoute(
                     name: "default",
                     template: "{controller=Home}/{action=Index}/{id?}");
             });
 
-            postService.LoadPosts(Path.Combine(env.ContentRootPath, "Posts"));
+            postService.LoadPosts(Path.Combine(env.WebRootPath, "posts"));
         }
     }
 }

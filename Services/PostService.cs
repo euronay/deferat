@@ -6,6 +6,7 @@ using Microsoft.Extensions.Logging;
 using YamlDotNet.Serialization;
 using Markdig;
 using YamlDotNet.Serialization.NamingConventions;
+using HtmlAgilityPack;
 
 namespace Deferat.Services
 {
@@ -66,11 +67,39 @@ namespace Deferat.Services
 
             var post = deserializer.Deserialize<PostModel>(new StringReader(rawMetadata));
 
-            post.Content = Markdig.Markdown.ToHtml(rawPost);
+            post.Locator = Path.GetFileName(Path.GetDirectoryName(path));
+
+            string content = Markdig.Markdown.ToHtml(rawPost);
+
+            content = FixImages(content, post.Locator);
+            
+            post.Content = content;
 
             _logger.LogInformation($"Loaded {post.Title}");
 
             return post;
         }
+
+        private string FixImages(string html, string folder)
+        {
+            var htmlDoc = new HtmlDocument();
+            htmlDoc.LoadHtml(html);
+
+            var imageNodes = htmlDoc.DocumentNode.SelectNodes("//img");
+            if (imageNodes == null)
+                return html;
+
+            foreach(var imageNode in imageNodes)
+            {
+                var src = imageNode.Attributes["src"].Value;
+                src = $"/posts/{folder}/{src}";
+                imageNode.SetAttributeValue("src", src);
+
+                imageNode.Attributes.Add("class", "img-fluid");
+            }
+
+            return htmlDoc.DocumentNode.OuterHtml;
+        }
     }
+    
 }
