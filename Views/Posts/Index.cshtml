@@ -1,9 +1,13 @@
 @model IEnumerable<PostModel>
 
-@foreach( var post in Model)
-{
-    <h1><a asp-controller="Posts" asp-action="Post" asp-route-id="@post.Locator">@post.Title</a></h1>
-    
-    @Html.Raw(post.Content)
-}
 
+<div class="container">
+
+    @foreach (var post in Model)
+    {
+        <h1 class="mt-5"><a asp-controller="Posts" asp-action="Post" asp-route-id="@post.Locator">@post.Title</a></h1>
+
+        @Html.Raw(post.Content)
+    }
+
+</div>

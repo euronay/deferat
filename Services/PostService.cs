@@ -1,12 +1,11 @@
+using Deferat.Models;
+using HtmlAgilityPack;
+using Microsoft.Extensions.Logging;
 using System.Collections.Generic;
 using System.IO;
 using System.Linq;
-using Deferat.Models;
-using Microsoft.Extensions.Logging;
 using YamlDotNet.Serialization;
-using Markdig;
 using YamlDotNet.Serialization.NamingConventions;
-using HtmlAgilityPack;
 
 namespace Deferat.Services
 {
@@ -36,7 +35,7 @@ namespace Deferat.Services
                 posts.Add(ReadPostFromFile(postFile));
             }
              
-            Posts = posts;
+            Posts = posts.OrderByDescending(p => p.Date);
         }
 
         private PostModel ReadPostFromFile(string path)
