@@ -11,6 +11,7 @@ namespace Deferat.Models
         public DateTime Date { get; set; }
         public IEnumerable<string> Categories { get; set; }
         public string Content { get; set; }
+        public string ShortContent { get; set; }
         public string Image {get; set;}
     }
 

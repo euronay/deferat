@@ -1,5 +1,4 @@
 using Deferat.Models;
-using HtmlAgilityPack;
 using Microsoft.Extensions.Logging;
 using System.Collections.Generic;
 using System.IO;
@@ -13,10 +12,14 @@ namespace Deferat.Services
     public class PostService : IPostService
     {
         public IEnumerable<PostModel> Posts { get; set; }
+
         private ILogger _logger;
-        public PostService(ILogger<PostService> logger)
+        private IFormatterService _formatter;
+
+        public PostService(ILogger<PostService> logger, IFormatterService formatter)
         {
             _logger = logger;
+            _formatter = formatter;
         }
 
         public void LoadPosts(string path)
@@ -70,35 +73,17 @@ namespace Deferat.Services
 
             string content = Markdig.Markdown.ToHtml(rawPost);
 
-            content = FixImages(content, post.Locator);
-            
+            content = _formatter.FixImages(content, post.Locator);
+
             post.Content = content;
+            post.ShortContent = _formatter.CreateTruncatedContent(content, 200);
 
             _logger.LogInformation($"Loaded {post.Title}");
 
             return post;
         }
 
-        private string FixImages(string html, string folder)
-        {
-            var htmlDoc = new HtmlDocument();
-            htmlDoc.LoadHtml(html);
-
-            var imageNodes = htmlDoc.DocumentNode.SelectNodes("//img");
-            if (imageNodes == null)
-                return html;
-
-            foreach(var imageNode in imageNodes)
-            {
-                var src = imageNode.Attributes["src"].Value;
-                src = $"/posts/{folder}/{src}";
-                imageNode.SetAttributeValue("src", src);
-
-                imageNode.Attributes.Add("class", "img-fluid");
-            }
-
-            return htmlDoc.DocumentNode.OuterHtml;
-        }
+        
     }
     
 }

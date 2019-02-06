@@ -36,7 +36,8 @@ namespace Deferat
 
             services.AddMvc().SetCompatibilityVersion(CompatibilityVersion.Version_2_1);
 
-            services.AddSingleton<IPostService, PostService>(); 
+            services.AddSingleton<IPostService, PostService>();
+            services.AddSingleton<IFormatterService, FormatterService>();
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
