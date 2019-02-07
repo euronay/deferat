@@ -1,5 +1,6 @@
 using Deferat.Models;
 using Microsoft.Extensions.Logging;
+using System;
 using System.Collections.Generic;
 using System.IO;
 using System.Linq;
@@ -11,10 +12,36 @@ namespace Deferat.Services
 
     public class PostService : IPostService
     {
+        private const int PostsPerPage = 3;
+
         public IEnumerable<PostModel> Posts { get; set; }
 
         private ILogger _logger;
         private IFormatterService _formatter;
+
+        public int PostCount
+        {
+            get
+            {
+                return Posts.Count();
+            }
+        }
+
+        public int PageCount
+        {
+            get
+            {
+                return (PostCount - 1) / PostsPerPage + 1;
+            }
+        }
+
+        public IEnumerable<PostModel> GetPosts(int pageNo)
+        {
+            if (pageNo > PageCount)
+                throw new ArgumentException($"Requested page {pageNo} but there are only {PageCount} pages");
+
+            return Posts.Skip((pageNo - 1) * PostsPerPage).Take(PostsPerPage);
+        }
 
         public PostService(ILogger<PostService> logger, IFormatterService formatter)
         {

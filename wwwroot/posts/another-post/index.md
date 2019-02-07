@@ -7,6 +7,7 @@ categories:
     - posts
     - blog 
 image: pineapple-supply-co-93822-unsplash.jpg
+featured: true
 ---
 This is a second test post 🎉
 

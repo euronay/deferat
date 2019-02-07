@@ -1,7 +1,8 @@
 
-using System.Linq;
 using Deferat.Services;
+using Deferat.ViewModels;
 using Microsoft.AspNetCore.Mvc;
+using System.Linq;
 
 namespace Deferat.Controllers
 {
@@ -14,9 +15,16 @@ namespace Deferat.Controllers
         }
 
         // GET: Posts
-        public ActionResult Index()
+        public ActionResult Index(int pageNumber = 1)
         {
-            return View(_postService.Posts);
+            var viewModel = new PostsViewModel()
+            {
+                Posts = _postService.GetPosts(pageNumber),
+                PageCount = _postService.PageCount,
+                CurrentPage = pageNumber
+            };
+
+            return View(viewModel);
         }
 
         public ActionResult Post(string id)

@@ -6,5 +6,6 @@ categories:
     - tests
     - posts
     - blog 
+featured: true
 ---
 This is a *test* post

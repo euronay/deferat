@@ -1,5 +1,5 @@
-using System.Collections.Generic;
 using Deferat.Models;
+using System.Collections.Generic;
 
 namespace Deferat.Services
 {
@@ -7,5 +7,10 @@ namespace Deferat.Services
     {
         IEnumerable<PostModel> Posts { get; set; }
         void LoadPosts(string path);
+
+        int PageCount { get; }
+        int PostCount { get; }
+
+        IEnumerable<PostModel> GetPosts(int pageNo);
     }
 }

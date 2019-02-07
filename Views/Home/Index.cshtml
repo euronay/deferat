@@ -17,7 +17,7 @@
             @foreach (var post in (IEnumerable<PostModel>)ViewData["Posts"])
             {
                 <div class="col-md-4">
-                    <h2><a asp-controller="Posts" asp-action="Post" asp-route-id="@post.Locator">@post.Title</a></h2>
+                    <h2><a asp-controller="Posts" asp-action="Post" asp-route-id="@post.Locator">@post.Title</a></h2>                    
                     <p>@Html.Raw(post.ShortContent)</p>
                     <p><a asp-controller="Posts" asp-action="Post" asp-route-id="@post.Locator">Read...</a></p>
                 </div>
