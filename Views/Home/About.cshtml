@@ -1,7 +1,32 @@
-﻿@{
+﻿@model IEnumerable<Author>
+@{
     ViewData["Title"] = "About";
 }
-<h2>@ViewData["Title"]</h2>
-<h3>@ViewData["Message"]</h3>
+<div class="container convert-emoji">
 
-<p>Use this area to provide additional information.</p>
+    <div class="row">
+        <div class="col-sm-12">
+            <h1 class="mt-5">About</h1>
+        </div>
+    </div>
+    @foreach (var author in Model)
+    {
+        <div class="row">
+            <div class="col-sm-3">
+                <div class="card border-0 shadow">
+                    <img class="card-img" src="../images/@author.Image" />
+                    <div class="card-body text-center">
+                        <h5 class="card-title">@author.DisplayName</h5>
+                        <div class="card-text text-black-50">
+                            <a href="https://twitter.com/@author.Twitter/"><i class="fab fa-twitter"></i> &commat;@author.Twitter</a> | 
+                            <a href="https://github.com/@author.Github/"><i class="fab fa-github"></i> @author.Github</a>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="col-sm-3">
+                @Html.Raw(author.Blurb)
+            </div>
+        </div>
+    }
+</div>

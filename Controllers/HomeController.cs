@@ -11,10 +11,12 @@ namespace Deferat.Controllers
     {
         private ILogger _logger;
         private IPostService _postService;
-        public HomeController(ILogger<HomeController> logger, IPostService postService)
+        private IAuthorService _authorService;
+        public HomeController(ILogger<HomeController> logger, IPostService postService, IAuthorService authorService)
         {
             _logger = logger;
             _postService = postService;
+            _authorService = authorService;
         }
         public IActionResult Index()
         {
@@ -27,9 +29,9 @@ namespace Deferat.Controllers
 
         public IActionResult About()
         {
-            ViewData["Message"] = "Your application description page.";
+            var authors = _authorService.Authors;
 
-            return View();
+            return View(authors);
         }
 
         public IActionResult Contact()

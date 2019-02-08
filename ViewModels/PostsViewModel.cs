@@ -9,6 +9,6 @@ namespace Deferat.ViewModels
 
         public int CurrentPage { get; set; }
 
-        public IEnumerable<PostModel> Posts { get; set; }
+        public IEnumerable<Post> Posts { get; set; }
     }
 }

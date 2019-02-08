@@ -5,12 +5,12 @@ namespace Deferat.Services
 {
     public interface IPostService
     {
-        IEnumerable<PostModel> Posts { get; set; }
+        IEnumerable<Post> Posts { get; set; }
         void LoadPosts(string path);
 
         int PageCount { get; }
         int PostCount { get; }
 
-        IEnumerable<PostModel> GetPosts(int pageNo);
+        IEnumerable<Post> GetPosts(int pageNo);
     }
 }

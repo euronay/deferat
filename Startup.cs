@@ -21,22 +21,25 @@ namespace Deferat
         // This method gets called by the runtime. Use this method to add services to the container.
         public void ConfigureServices(IServiceCollection services)
         {
-            services.Configure<CookiePolicyOptions>(options =>
-            {
-                // This lambda determines whether user consent for non-essential cookies is needed for a given request.
-                options.CheckConsentNeeded = context => true;
-                options.MinimumSameSitePolicy = SameSiteMode.None;
-            });
+            // services.Configure<CookiePolicyOptions>(options =>
+            // {
+            //     // This lambda determines whether user consent for non-essential cookies is needed for a given request.
+            //     options.CheckConsentNeeded = context => true;
+            //     options.MinimumSameSitePolicy = SameSiteMode.None;
+            // });
 
 
             services.AddMvc().SetCompatibilityVersion(CompatibilityVersion.Version_2_1);
 
             services.AddSingleton<IPostService, PostService>();
+            services.AddSingleton<IAuthorService, AuthorService>();
             services.AddSingleton<IFormatterService, FormatterService>();
+            services.AddSingleton<IFileReader, FileReader>();
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
-        public void Configure(IApplicationBuilder app, IHostingEnvironment env, IPostService postService)
+        public void Configure(IApplicationBuilder app, IHostingEnvironment env, IPostService postService, 
+            IAuthorService authorService)
         {
             if (env.IsDevelopment())
             {
@@ -68,6 +71,7 @@ namespace Deferat
             });
 
             postService.LoadPosts(Path.Combine(env.WebRootPath, "posts"));
+            authorService.LoadAuthors(Path.Combine(env.WebRootPath, "authors"));
         }
     }
 }

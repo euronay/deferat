@@ -3,7 +3,7 @@ using System.Collections.Generic;
 
 namespace Deferat.Models
 {
-    public class PostModel
+    public class Post
     {
         public string Locator { get; set; }
         public string Title { get; set; }

@@ -14,12 +14,12 @@
     <div class="container">
         <!-- Example row of columns -->
         <div class="row">
-            @foreach (var post in (IEnumerable<PostModel>)ViewData["Posts"])
+            @foreach (var post in (IEnumerable<Post>)ViewData["Posts"])
             {
-                <div class="col-md-4">
-                    <h2><a asp-controller="Posts" asp-action="Post" asp-route-id="@post.Locator">@post.Title</a></h2>                    
+                <div class="col-md-4 convert-emoji">
+                    <h2><a asp-controller="Posts" asp-action="ViewPost" asp-route-id="@post.Locator">@post.Title</a></h2>                    
                     <p>@Html.Raw(post.ShortContent)</p>
-                    <p><a asp-controller="Posts" asp-action="Post" asp-route-id="@post.Locator">Read...</a></p>
+                    <p><a asp-controller="Posts" asp-action="ViewPost" asp-route-id="@post.Locator">Read...</a></p>
                 </div>
             }
         </div>

@@ -27,7 +27,7 @@ namespace Deferat.Controllers
             return View(viewModel);
         }
 
-        public ActionResult Post(string id)
+        public ActionResult ViewPost(string id)
         {
             var post = _postService.Posts.FirstOrDefault(p => p.Locator.ToLower() == id.ToLower());
             if(post != null)

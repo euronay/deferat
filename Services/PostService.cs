@@ -14,10 +14,11 @@ namespace Deferat.Services
     {
         private const int PostsPerPage = 3;
 
-        public IEnumerable<PostModel> Posts { get; set; }
+        public IEnumerable<Post> Posts { get; set; }
 
         private ILogger _logger;
         private IFormatterService _formatter;
+        private IFileReader _fileReader;
 
         public int PostCount
         {
@@ -35,7 +36,7 @@ namespace Deferat.Services
             }
         }
 
-        public IEnumerable<PostModel> GetPosts(int pageNo)
+        public IEnumerable<Post> GetPosts(int pageNo)
         {
             if (pageNo > PageCount)
                 throw new ArgumentException($"Requested page {pageNo} but there are only {PageCount} pages");
@@ -43,10 +44,11 @@ namespace Deferat.Services
             return Posts.Skip((pageNo - 1) * PostsPerPage).Take(PostsPerPage);
         }
 
-        public PostService(ILogger<PostService> logger, IFormatterService formatter)
+        public PostService(ILogger<PostService> logger, IFormatterService formatter, IFileReader fileReader)
         {
             _logger = logger;
             _formatter = formatter;
+            _fileReader = fileReader;
         }
 
         public void LoadPosts(string path)
@@ -55,7 +57,7 @@ namespace Deferat.Services
 
             var postDirectories = Directory.GetDirectories(path);
 
-            var posts = new List<PostModel>();
+            var posts = new List<Post>();
             foreach(var directory in postDirectories)
             {
                 var postFile = Directory.GetFiles(directory, "*.md").FirstOrDefault();
@@ -68,37 +70,21 @@ namespace Deferat.Services
             Posts = posts.OrderByDescending(p => p.Date);
         }
 
-        private PostModel ReadPostFromFile(string path)
+        private Post ReadPostFromFile(string path)
         {
             _logger.LogInformation($"Loading {path}");
 
-            string rawMetadata = string.Empty;
-            string rawPost = string.Empty;
-
-            using(var reader = File.OpenText(path))
-            {
-                if(reader.ReadLine() != "---")
-                    return null;
-                
-                string line;
-
-                while((line = reader.ReadLine()) != "---")
-                {
-                    rawMetadata += line + "\r\n";
-                }
-
-                rawPost = reader.ReadToEnd();
-            }
+            var file = _fileReader.ReadFile(path);
 
             var deserializer = new DeserializerBuilder()
                 .WithNamingConvention(new CamelCaseNamingConvention())
                 .Build();
 
-            var post = deserializer.Deserialize<PostModel>(new StringReader(rawMetadata));
+            var post = deserializer.Deserialize<Post>(new StringReader(file.MetaData));
 
             post.Locator = Path.GetFileName(Path.GetDirectoryName(path));
 
-            string content = Markdig.Markdown.ToHtml(rawPost);
+            string content = Markdig.Markdown.ToHtml(file.Text);
 
             content = _formatter.FixImages(content, post.Locator);
 

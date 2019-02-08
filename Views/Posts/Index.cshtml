@@ -6,9 +6,9 @@
     @foreach (var post in Model.Posts)
     {
         <div class="row">
-            <div class="col-sm-12">
+            <div class="col-sm-12 convert-emoji">
 
-                <h1 class="mt-5"><a asp-controller="Posts" asp-action="Post" asp-route-id="@post.Locator">@post.Title</a></h1>
+                <h1 class="mt-5"><a asp-controller="Posts" asp-action="ViewPost" asp-route-id="@post.Locator">@post.Title</a></h1>
 
                 @Html.Raw(post.Content)
             </div>

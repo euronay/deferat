@@ -1,5 +1,5 @@
 ﻿@import url(http://fonts.googleapis.com/css?family=Montserrat:400,300,700);
-@import url(http://fonts.googleapis.com/css?family=Merriweather:400,300,700);
+@import url(http://fonts.googleapis.com/css?family=Asap:400,300,700);
 
 
 html {
@@ -16,7 +16,7 @@ body {
 }
 
 h1, h2, .navbar-brand {
-    font-family: 'Merriweather', serif !important;
+    font-family: 'Asap', serif !important;
 }
 
 h1 a, h1 a:active, h1 a:visited, h1 a:hover,
