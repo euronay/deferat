@@ -1,4 +1,10 @@
 ﻿@model Deferat.ViewModels.PostAuthorViewModel
-
-<img src="../images/@Model.Author.Image" class="img-thumbnail rounded-circle" />
-<p>@Model.Author.DisplayName</p>
+<!-- <div style="position:relative;
+    overflow:hidden;
+    padding-bottom:100%;" class="rounded-image">
+    <img src="../images/@Model.Author.Image" class="img-fluid" style="position:absolute; top:-10%" />
+</div> -->
+<div class="text-right mt-2">
+    @Model.Post.Date.ToShortDateString()<br />  
+    <span class="font-weight-bold">@Model.Author.DisplayName</span>
+</div>
