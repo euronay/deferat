@@ -8,9 +8,6 @@ namespace Deferat.Services
         IEnumerable<Post> Posts { get; set; }
         void LoadPosts(string path);
 
-        int PageCount { get; }
-        int PostCount { get; }
-
-        IEnumerable<Post> GetPosts(int pageNo);
+        IEnumerable<Post> GetPosts(int pageNo, out int pageCount, string tag = null);
     }
 }

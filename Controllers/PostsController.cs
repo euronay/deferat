@@ -15,12 +15,15 @@ namespace Deferat.Controllers
         }
 
         // GET: Posts
-        public ActionResult Index(int pageNumber = 1)
+        public ActionResult Index(string tag, int pageNumber = 1)
         {
+            var pageCount = 0;
+            var posts = _postService.GetPosts(pageNumber, out pageCount, tag);
+
             var viewModel = new PostsViewModel()
             {
-                Posts = _postService.GetPosts(pageNumber),
-                PageCount = _postService.PageCount,
+                Posts = posts,
+                PageCount = pageCount,
                 CurrentPage = pageNumber
             };
 

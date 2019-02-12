@@ -58,6 +58,10 @@ namespace Deferat
             app.UseMvc(routes =>
             {
                 routes.MapRoute(
+                    name: "tags",
+                    template: "Posts/Tag/{tag}/Page/{pageNumber?}/",
+                    defaults: new { Controller = "Posts", Action = "Index", tag = "", pageNumber = 1 });
+                routes.MapRoute(
                     name: "posts",
                     template: "Posts/Page/{pageNumber?}",
                     defaults: new { Controller = "Posts", Action = "Index", pageNumber = 1 });

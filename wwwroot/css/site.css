@@ -13,6 +13,13 @@ body {
     /* Margin bottom by footer height */
     margin-bottom: 4.5rem;
     font-family: 'Montserrat', sans-serif !important;
+    background-color: #f9fcff;
+}
+
+.bg-dark {
+
+    background-color: #343A40 !important;
+
 }
 
 h1, h2, .navbar-brand {
@@ -25,11 +32,19 @@ h2 a, h2 a:active, h2 a:visited, h2 a:hover {
     color: inherit
 }
 
+.search-btn, .search-btn:active, .search-btn:visited {
+    color: rgba(255,255,255,.5);
+}
+
+.search-btn:hover {
+    color: rgba(255,255,255,.75);
+}
+
 .footer {
     position: absolute;
     bottom: 0;
     width: 100%;
     /* Set the fixed height of the footer here */
     height: 3.5rem;
-    background-color: #f5f5f5;
+    background-color: #d0dbe2;
 }

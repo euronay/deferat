@@ -36,16 +36,26 @@ namespace Deferat.Services
             htmlDoc.LoadHtml(html);
 
             var imageNodes = htmlDoc.DocumentNode.SelectNodes("//img");
-            if (imageNodes == null)
-                return html;
 
-            foreach (var imageNode in imageNodes)
+            if(imageNodes != null)
             {
-                var src = imageNode.Attributes["src"].Value;
-                src = $"/posts/{folder}/{src}";
-                imageNode.SetAttributeValue("src", src);
+                foreach (var imageNode in imageNodes)
+                {
+                    var src = imageNode.Attributes["src"].Value;
+                    src = $"/posts/{folder}/{src}";
+                    imageNode.SetAttributeValue("src", src);
 
-                imageNode.Attributes.Add("class", "img-fluid");
+                    imageNode.Attributes.Add("class", "img-fluid");
+                }
+            }
+
+            var tableNodes = htmlDoc.DocumentNode.SelectNodes("//table");
+            if(tableNodes != null)
+            {
+                foreach (var tableNode in tableNodes)
+                {
+                    tableNode.Attributes.Add("class", "table");
+                }
             }
 
             return htmlDoc.DocumentNode.OuterHtml;

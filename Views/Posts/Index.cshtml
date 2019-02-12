@@ -3,6 +3,13 @@
 
 <div class="container">
 
+    @if (Model.Posts.Count() == 0)
+    {
+        <div class="row mt-5 lead text-center">
+            Nothing to see here!
+        </div>
+    }
+
     @foreach (var post in Model.Posts)
     {
     <div class="row mt-5">

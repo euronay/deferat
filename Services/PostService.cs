@@ -1,4 +1,5 @@
 using Deferat.Models;
+using Markdig;
 using Microsoft.Extensions.Logging;
 using System;
 using System.Collections.Generic;
@@ -20,28 +21,20 @@ namespace Deferat.Services
         private IFormatterService _formatter;
         private IFileReader _fileReader;
 
-        public int PostCount
+        public IEnumerable<Post> GetPosts(int pageNo, out int pageCount, string tag = null)
         {
-            get
+            var posts = Posts;
+            if(!String.IsNullOrEmpty(tag))
             {
-                return Posts.Count();
+                posts = posts.Where(p => p.Categories.Contains(tag));
             }
-        }
+            
+            pageCount = (posts.Count() - 1) / PostsPerPage + 1;
 
-        public int PageCount
-        {
-            get
-            {
-                return (PostCount - 1) / PostsPerPage + 1;
-            }
-        }
+            if (pageNo > pageCount)
+                throw new ArgumentException($"Requested page {pageNo} but there are only {pageCount} pages");
 
-        public IEnumerable<Post> GetPosts(int pageNo)
-        {
-            if (pageNo > PageCount)
-                throw new ArgumentException($"Requested page {pageNo} but there are only {PageCount} pages");
-
-            return Posts.Skip((pageNo - 1) * PostsPerPage).Take(PostsPerPage);
+            return posts.Skip((pageNo - 1) * PostsPerPage).Take(PostsPerPage);
         }
 
         public PostService(ILogger<PostService> logger, IFormatterService formatter, IFileReader fileReader)
@@ -84,7 +77,10 @@ namespace Deferat.Services
 
             post.Locator = Path.GetFileName(Path.GetDirectoryName(path));
 
-            string content = Markdig.Markdown.ToHtml(file.Text);
+            var pipeline = new MarkdownPipelineBuilder()
+                .UseAdvancedExtensions()
+                .Build();
+            string content = Markdown.ToHtml(file.Text, pipeline);
 
             content = _formatter.FixImages(content, post.Locator);
 
