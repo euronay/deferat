@@ -1,0 +1,12 @@
+@model Post
+
+@{
+    ViewData["Title"] = @Model.Title;
+}
+
+<div class="container">
+
+    @await Html.PartialAsync("_Post")
+
+</div>
+

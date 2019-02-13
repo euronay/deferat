@@ -40,6 +40,14 @@ h2 a, h2 a:active, h2 a:visited, h2 a:hover {
     color: rgba(255,255,255,.75);
 }
 
+.jumbotron-main {
+    background: url('../images/jason-leung-479251-unsplash.jpg'); 
+    background-size: cover; 
+    background-position: center center; 
+    padding-top: 5rem;
+    padding-bottom: 5rem;
+}
+
 .footer {
     position: absolute;
     bottom: 0;
