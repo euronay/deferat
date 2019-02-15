@@ -13,7 +13,7 @@ featured: true
 
 Small Linux VMs are super cheap option to host .NET Core webapps. I am actually hosting this blog on a VM from [INIZ](https://iniz.com/)
 
-I've opted for Ubuntu 16.04 as my OS image, so let's run through how to set up a .NET Core web app from scratch
+I've opted for Ubuntu 16.04 as my OS image, so let's run through how to deploy .NET Core web app onto a brand new VVM
 
 ## Add a new user and disable root access
 
@@ -31,7 +31,7 @@ Change **PermitRootLogin** to no and add an **AllowUsers** entry
 PermitRootLogin no
 AllowUsers james
 ```
-Restart ssh service
+Restart `ssh` service
 ```bash
 sudo systemctl restart sshd
 ```
@@ -61,6 +61,7 @@ Make sure it's installed by running
 dotnet --version
 ```
 
+
 ## Publish app to the Server
 
 We are going to primarily be using the instructions from Microsoft Docs to [Host ASP.NET Core on Linux](https://docs.microsoft.com/en-us/aspnet/core/host-and-deploy/linux-nginx?view=aspnetcore-2.2) to deploy our app. 
@@ -81,8 +82,9 @@ dotnet publish-ssh --ssh-host <address of your server> --ssh-user <username> --s
 ```
 
 
+Later we will set up a CI pipeline to publish our app automatically{alert alert-info}
 
-Later we will set up a CI pipeline to publish our app automatically
+
 
 ### Setup reverse proxy
 
@@ -116,14 +118,21 @@ If you navigate to your server's url, you should now see the default welcome pag
 
 ![](nginx-started.png)
 
-In my case, my server already had apache2 installed and configured - you will need to disable this if you want to use NGINX{.alert}{.alert-info}
 
-Now we need to configure NGINX to forward request to our app. You need to modify the `/etc/nginx/sites-available/default` file and replace the contents with:
+In my case, my server already had apache2 installed and configured - I had to disable this with: 
+
+```bash
+sudo service stop apache2
+```
+
+
+
+Next we need to configure NGINX to forward request to our app. You need to modify the `/etc/nginx/sites-available/default` file and replace the contents with:
 
 ```json
 server {
     listen        80;
-    server_name   example.com *.example.com;
+    server_name   <your domain>;
     location / {
         proxy_pass         http://localhost:5000;
         proxy_http_version 1.1;
@@ -136,16 +145,36 @@ server {
     }
 }
 ```
+Your will then need to link this to `etc/nginx/sites-enabled/default` with
 
-copy sites-available to sites-enabled???
+```bash
+sudo sn -l /etc/nginx/sites-available/default /etc/nginx/sites-enabled/
+```
 
-## TODO
+Also ensure that your default site is included in the config file for NGINX at `/etc/nginx/nginx.conf` - there should be a line like:
+```text
+include /etc/nginx/sites-available/default;
+```
 
-- Cloning repo and setting up as a remote
-- Open web app to outside world
-- [Host on Linux with Nginx](https://docs.microsoft.com/en-us/aspnet/core/host-and-deploy/linux-nginx?view=aspnetcore-2.2)
-- Setup Domain
-- LetsEncrypt
+Once you have restarted the NGINX service, start your app with
+```bash
+dotnet <myapp>.dll
+```
 
-<i class="fab fa-docker" /> Docker 
+If you then visit your VM in the browser, you should see your wepapp running:
+
+![](working-website.png)
+
+## Running .NET app as a service
+
+The final task is to set up our webapp to run as a service, so you don't have to be logged in to your server
+
+
+## Further improvments
+
+Congratulations 🎉! You have you app up and running on your VM. However, we can still go much further. Coming up next:
+
+- Securing your site with an SSL certificate
+- Setting up a CI pipeline
+
 
