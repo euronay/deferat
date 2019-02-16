@@ -129,7 +129,7 @@ sudo service stop apache2
 
 Next we need to configure NGINX to forward request to our app. You need to modify the `/etc/nginx/sites-available/default` file and replace the contents with:
 
-```json
+```
 server {
     listen        80;
     server_name   <your domain>;
@@ -151,9 +151,13 @@ Your will then need to link this to `etc/nginx/sites-enabled/default` with
 sudo sn -l /etc/nginx/sites-available/default /etc/nginx/sites-enabled/
 ```
 
-Also ensure that your default site is included in the config file for NGINX at `/etc/nginx/nginx.conf` - there should be a line like:
+Also ensure that your default site is included in the `http` section of the config file for NGINX at `/etc/nginx/nginx.conf` - there should be a line like:
 ```text
-include /etc/nginx/sites-available/default;
+http{
+    ...
+
+    include /etc/nginx/sites-available/default;
+}
 ```
 
 Once you have restarted the NGINX service, start your app with
@@ -161,14 +165,41 @@ Once you have restarted the NGINX service, start your app with
 dotnet <myapp>.dll
 ```
 
-If you then visit your VM in the browser, you should see your wepapp running:
+If you then visit your VM in the browser, you should see your wepapp running!
 
 ![](working-website.png)
 
 ## Running .NET app as a service
 
-The final task is to set up our webapp to run as a service, so you don't have to be logged in to your server
+The final task is to set up our webapp to run as a service, so you don't have to be logged in to your server for your application to run.
 
+
+Create a service file
+```bash
+sudo nano /etc/systemd/system/kestrel-<myapp>.service
+```
+
+Enter your service information
+```ini
+[Unit]
+Description=Example .NET Web API App running on Ubuntu
+
+[Service]
+WorkingDirectory=/var/www/helloapp
+ExecStart=/usr/bin/dotnet /var/www/helloapp/helloapp.dll
+Restart=always
+# Restart service after 10 seconds if the dotnet service crashes:
+RestartSec=10
+KillSignal=SIGINT
+SyslogIdentifier=dotnet-example
+User=www-data
+Environment=ASPNETCORE_ENVIRONMENT=Production
+Environment=DOTNET_PRINT_TELEMETRY_MESSAGE=false
+
+[Install]
+WantedBy=multi-user.target
+
+```
 
 ## Further improvments
 
