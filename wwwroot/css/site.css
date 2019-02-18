@@ -32,6 +32,10 @@ h2 a, h2 a:active, h2 a:visited, h2 a:hover {
     color: inherit
 }
 
+.article h2 {
+    margin-top: 3.5rem;
+}
+
 .search-btn, .search-btn:active, .search-btn:visited {
     color: rgba(255,255,255,.5);
 }

@@ -45,7 +45,7 @@ namespace Deferat.Services
                     src = $"/posts/{folder}/{src}";
                     imageNode.SetAttributeValue("src", src);
 
-                    imageNode.Attributes.Add("class", "img-fluid");
+                    imageNode.Attributes.Add("class", "img-fluid shadow-sm rounded");
                 }
             }
 

@@ -79,6 +79,7 @@ namespace Deferat.Services
 
             var pipeline = new MarkdownPipelineBuilder()
                 .UseAdvancedExtensions()
+                .UseAutoIdentifiers()
                 .Build();
             string content = Markdown.ToHtml(file.Text, pipeline);
 
