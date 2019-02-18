@@ -87,6 +87,7 @@ namespace Deferat.Services
 
             post.Content = content;
             post.ShortContent = _formatter.CreateTruncatedContent(content, 200);
+            post.Image = $"/posts/{post.Locator}/{post.Image}";
 
             _logger.LogInformation($"Loaded {post.Title}");
 

@@ -23,10 +23,22 @@
         <div class="row">
             @foreach (var post in (IEnumerable<Post>)ViewData["Posts"])
             {
-                <div class="col-md-4 convert-emoji">
-                    <h2><a asp-controller="Posts" asp-action="Read" asp-route-id="@post.Locator">@post.Title</a></h2>                    
-                    <p>@Html.Raw(post.ShortContent)</p>
-                    <p><a asp-controller="Posts" asp-action="Read" asp-route-id="@post.Locator">Read...</a></p>
+                <div class="col-md-4 d-flex align-items-stretch">
+                    <div class="card">
+                        <div class="card-img-wrapper">
+                            <img class="card-img-top img-fluid" src="@post.Image" />
+                        </div>
+                        <div class="card-body convert-emoji">
+                            <h3 class="card-title"><a asp-controller="Posts" asp-action="Read" asp-route-id="@post.Locator">@post.Title</a></h3>                    
+                            <div>
+                                @Html.Raw(post.ShortContent)
+                            </div>
+                            
+                        </div>
+                        <div class="card-footer">
+                            <a asp-controller="Posts" asp-action="Read" asp-route-id="@post.Locator" class="btn btn-primary">Read</a>
+                        </div>
+                    </div>
                 </div>
             }
         </div>

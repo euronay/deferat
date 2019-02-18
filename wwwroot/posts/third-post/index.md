@@ -1,5 +1,5 @@
 ---
-title: Third Post
+title: Third Post 🍍
 author: James
 date: 2019-02-01
 categories: 
@@ -7,6 +7,7 @@ categories:
     - posts
     - blog 
 featured: true
+image: pineapple-supply-co-93822-unsplash.jpg
 ---
 Lorem ipsum dolor sit amet, consectetuer adipiscing elit. Donec odio. Quisque volutpat mattis eros. Nullam malesuada erat ut turpis. Suspendisse urna nibh, viverra non, semper suscipit, posuere a, pede.
 

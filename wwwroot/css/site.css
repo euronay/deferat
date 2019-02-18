@@ -60,3 +60,35 @@ h2 a, h2 a:active, h2 a:visited, h2 a:hover {
     height: 3.5rem;
     background-color: #d0dbe2;
 }
+
+.card{
+    overflow: hidden;
+    margin-bottom: 2rem;
+}
+
+.card-img-wrapper {
+    position: relative;
+    overflow: hidden;
+    height: 10rem;
+}
+
+.card-img-wrapper:after {
+    content: '';
+    display: block;
+    padding-top: 100%;
+}
+
+.card-img-wrapper img {
+    height: auto;
+    width: 100%;
+    max-height: none;
+    position: absolute;
+    top: 50%;
+    left: 0;
+    transform: translateY(-50%);
+}
+
+.card-footer {
+    background-color: white;
+    border-top: none;
+}

@@ -1,9 +1,15 @@
 ﻿using HtmlAgilityPack;
+using Microsoft.Extensions.Logging;
 
 namespace Deferat.Services
 {
     public class FormatterService : IFormatterService
     {
+        private ILogger _logger;
+        public FormatterService(ILogger<FormatterService> logger)
+        {
+            _logger = logger;
+        }
 
         public string CreateTruncatedContent(string html, int maxLength)
         {
@@ -11,22 +17,24 @@ namespace Deferat.Services
             var htmlDoc = new HtmlDocument();
             htmlDoc.LoadHtml(html);
 
+            var shortDoc = new HtmlDocument();
             // extract text
             string text = string.Empty;
-
-            foreach (HtmlNode node in htmlDoc.DocumentNode.SelectNodes("//text()"))
+            foreach (HtmlNode node in htmlDoc.DocumentNode.ChildNodes)
             {
+                
                 text += node.InnerText;
+                shortDoc.DocumentNode.AppendChild(node);
+
+                _logger.LogInformation($"Text: {text}");
+                _logger.LogInformation($"Html {shortDoc.DocumentNode.OuterHtml}");
+
+                if(text.Length > maxLength)
+                    return shortDoc.DocumentNode.OuterHtml;
             }
 
-
-            if (text.Length <= maxLength)
-                return text;
-
-            var trimmedText = text.Substring(0, maxLength);
-            trimmedText = trimmedText.Substring(0, trimmedText.LastIndexOf(" "));
-
-            return $"{trimmedText}...";
+            // text is shorted than max
+            return htmlDoc.DocumentNode.OuterHtml;
 
         }
 

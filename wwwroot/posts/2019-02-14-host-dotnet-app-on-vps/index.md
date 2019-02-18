@@ -7,7 +7,7 @@ categories:
     - devops
     - vps
     - linux
-image: jason-blackeye-131049-unsplash.jpg
+image: ubuntu-16.10-wallpaper-wanaka-tree.jpg
 featured: true
 ---
 
