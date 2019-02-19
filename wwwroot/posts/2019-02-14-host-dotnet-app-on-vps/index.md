@@ -7,7 +7,7 @@ categories:
     - devops
     - vps
     - linux
-image: ubuntu-16.10-wallpaper-wanaka-tree.jpg
+image: ubuntu16.04-wallpapers-Night_lights_by_Alberto_Salvia_Novella.jpg
 featured: true
 ---
 

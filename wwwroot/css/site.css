@@ -5,6 +5,7 @@
 html {
     position: relative;
     min-height: 100%;
+    font-size: 14px;
 }
 
 body {
@@ -13,7 +14,7 @@ body {
     /* Margin bottom by footer height */
     margin-bottom: 4.5rem;
     font-family: 'Montserrat', sans-serif !important;
-    background-color: #f9fcff;
+    background-color: #d0dbe2;
 }
 
 .bg-dark {
@@ -46,10 +47,12 @@ h2 a, h2 a:active, h2 a:visited, h2 a:hover {
 
 .jumbotron-main {
     background: url('../images/cristian-palmer-716730-unsplash.jpg'); 
-    background-size: cover; 
+    background-size: 100% auto !important;  
     background-position: center center; 
     padding-top: 5rem;
     padding-bottom: 5rem;
+    height: 20rem;
+    background-attachment: fixed !important;
 }
 
 .footer {
@@ -64,6 +67,8 @@ h2 a, h2 a:active, h2 a:visited, h2 a:hover {
 .card{
     overflow: hidden;
     margin-bottom: 2rem;
+    width: 100%;
+    background-color: #f9fcff;
 }
 
 .card-img-wrapper {
@@ -89,6 +94,12 @@ h2 a, h2 a:active, h2 a:visited, h2 a:hover {
 }
 
 .card-footer {
-    background-color: white;
+    background-color: #f9fcff;
     border-top: none;
+}
+
+.jumbo-overlaid {
+    margin-top: -18rem;
+    background-color: #f9fcff;
+    padding-top: 1.5rem;
 }

@@ -22,7 +22,7 @@ namespace Deferat.Controllers
         {
             _logger.LogDebug("Hello, World");
 
-            ViewData["Posts"] = _postService.Posts.Take(3);
+            ViewData["Posts"] = _postService.Posts.Take(4);
 
             return View();
         }

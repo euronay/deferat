@@ -4,7 +4,11 @@
     ViewData["Title"] = @Model.Title;
 }
 
-<div class="container">
+<div class="jumbotron jumbotron-main text-white" style="background: url('@Model.Image'); " >
+
+</div> 
+
+<div class="container jumbo-overlaid  rounded shadow">
 
     @await Html.PartialAsync("_Post")
 

@@ -1,6 +1,6 @@
 @model Post
 
-<div class="row mt-5 convert-emoji">
+<div class="row convert-emoji">
     <div class="col-sm-2">
         <div class="text-right mt-2">
             @Model.Date.ToShortDateString()<br />  
@@ -16,8 +16,14 @@
     </div>
     <div class="col-sm-10 article">
 
-        <h1><a asp-controller="Posts" asp-action="Read" asp-route-id="@Model.Locator">@Model.Title</a></h1>
-
-        @Html.Raw(Model.Content)
+        <h1><a asp-controller="Posts" asp-action="Read" asp-route-id="@Model.Locator" class="display-4">@Model.Title</a></h1>
+        @if (ViewData["Short"] != null)
+        {
+            @Html.Raw(Model.ShortContent)
+        }
+        else
+        {
+            @Html.Raw(Model.Content)
+        }
     </div>
 </div>

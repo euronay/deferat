@@ -16,10 +16,14 @@
 
     @foreach (var post in Model.Posts)
     {
-        @await Html.PartialAsync("_Post", post)
+        <div class="row mt-5">
+            <div class="container rounded shadow" style="background-color: #f9fcff">
+                @await Html.PartialAsync("_Post", post, new ViewDataDictionary(this.ViewData){{"Short", true}})
+            </div>
+        </div>
     }
 
-    <div class="row">
+    <div class="row mt-5">
         <div class="col-sm-6">
             @if (Model.CurrentPage < Model.PageCount)
             {
