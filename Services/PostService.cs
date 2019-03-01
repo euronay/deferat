@@ -16,10 +16,9 @@ namespace Deferat.Services
         private const int PostsPerPage = 3;
 
         public IEnumerable<Post> Posts { get; set; }
-
         private ILogger _logger;
         private IFormatterService _formatter;
-        private IFileReader _fileReader;
+        private IFileReader<Post> _fileReader;
 
         public IEnumerable<Post> GetPosts(int pageNo, out int pageCount, string tag = null)
         {
@@ -37,7 +36,7 @@ namespace Deferat.Services
             return posts.Skip((pageNo - 1) * PostsPerPage).Take(PostsPerPage);
         }
 
-        public PostService(ILogger<PostService> logger, IFormatterService formatter, IFileReader fileReader)
+        public PostService(ILogger<PostService> logger, IFormatterService formatter, IFileReader<Post> fileReader)
         {
             _logger = logger;
             _formatter = formatter;
@@ -67,27 +66,13 @@ namespace Deferat.Services
         {
             _logger.LogInformation($"Loading {path}");
 
-            var file = _fileReader.ReadFile(path);
+            var post = _fileReader.ReadFile(path);
 
-            var deserializer = new DeserializerBuilder()
-                .WithNamingConvention(new CamelCaseNamingConvention())
-                .Build();
+            post.Id = Path.GetFileName(Path.GetDirectoryName(path));
 
-            var post = deserializer.Deserialize<Post>(new StringReader(file.MetaData));
-
-            post.Locator = Path.GetFileName(Path.GetDirectoryName(path));
-
-            var pipeline = new MarkdownPipelineBuilder()
-                .UseAdvancedExtensions()
-                .UseAutoIdentifiers()
-                .Build();
-            string content = Markdown.ToHtml(file.Text, pipeline);
-
-            content = _formatter.FixImages(content, post.Locator);
-
-            post.Content = content;
-            post.ShortContent = _formatter.CreateTruncatedContent(content, 200);
-            post.Image = $"/posts/{post.Locator}/{post.Image}";
+            post.Html = _formatter.FixImages(post.Html, post.Id);;
+            post.Image = $"/posts/{post.Id}/{post.Image}";
+            post.ShortContent = _formatter.CreateTruncatedContent(post.Html, 200);
 
             _logger.LogInformation($"Loaded {post.Title}");
 

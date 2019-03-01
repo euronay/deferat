@@ -3,7 +3,7 @@ using System.Collections.Generic;
 
 namespace Deferat.ViewModels
 {
-    public class PostsViewModel
+    public class PostListViewModel
     {
         public int PageCount { get; set; }
 

@@ -5,13 +5,13 @@
         <img class="card-img-top img-fluid" src="@Model.Image" />
     </div>
     <div class="card-body convert-emoji">
-        <h4 class="card-title"><a asp-controller="Posts" asp-action="Read" asp-route-id="@Model.Locator">@Model.Title</a></h4>                    
+        <h4 class="card-title"><a asp-controller="Posts" asp-action="Read" asp-route-id="@Model.Id">@Model.Title</a></h4>                    
         <div>
             @Html.Raw(Model.ShortContent)
         </div>
         
     </div>
     <div class="card-footer">
-        <a asp-controller="Posts" asp-action="Read" asp-route-id="@Model.Locator" class="btn btn-primary">Read</a>
+        <a asp-controller="Posts" asp-action="Read" asp-route-id="@Model.Id" class="btn btn-primary">Read</a>
     </div>
 </div>

@@ -15,13 +15,11 @@ namespace Deferat.Services
         public IEnumerable<Author> Authors { get; set; }
 
         private ILogger _logger;
-        private IFormatterService _formatter;
-        private IFileReader _fileReader;
+        private IFileReader<Author> _fileReader;
 
-        public AuthorService(ILogger<AuthorService> logger, IFormatterService formatter, IFileReader fileReader)
+        public AuthorService(ILogger<AuthorService> logger, IFileReader<Author> fileReader)
         {
             _logger = logger;
-            _formatter = formatter;
             _fileReader = fileReader;
         }
 
@@ -49,16 +47,7 @@ namespace Deferat.Services
         {
             _logger.LogInformation($"Loading {path}");
 
-            var file = _fileReader.ReadFile(path);
-
-            var deserializer = new DeserializerBuilder()
-                .WithNamingConvention(new CamelCaseNamingConvention())
-                .Build();
-
-            var author = deserializer.Deserialize<Author>(new StringReader(file.MetaData));
-
-
-            author.Blurb = Markdig.Markdown.ToHtml(file.Text);
+            var author = _fileReader.ReadFile(path);
 
             _logger.LogInformation($"Loaded {author.Id}");
 

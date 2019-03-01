@@ -1,4 +1,6 @@
-﻿using Deferat.Services;
+﻿using Deferat.Models;
+using Deferat.Repository;
+using Deferat.Services;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
 using Microsoft.AspNetCore.Http;
@@ -34,12 +36,16 @@ namespace Deferat
             services.AddSingleton<IPostService, PostService>();
             services.AddSingleton<IAuthorService, AuthorService>();
             services.AddSingleton<IFormatterService, FormatterService>();
-            services.AddSingleton<IFileReader, FileReader>();
+            services.AddSingleton<IFileReader<Post>, FileReader<Post>>();
+            services.AddSingleton<IFileReader<Author>, FileReader<Author>>();
+            services.AddSingleton<IRepository<Post>, Repository<Post>>();
+            services.AddSingleton<IRepository<Author>, Repository<Author>>();
+            services.AddSingleton<IRepositoryContainer, RepositoryContainer>();
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
         public void Configure(IApplicationBuilder app, IHostingEnvironment env, IPostService postService, 
-            IAuthorService authorService)
+            IAuthorService authorService, IRepository<Post> postRepository, IRepository<Author> authorRepository)
         {
             if (env.IsDevelopment())
             {
@@ -76,6 +82,9 @@ namespace Deferat
 
             postService.LoadPosts(Path.Combine(env.WebRootPath, "posts"));
             authorService.LoadAuthors(Path.Combine(env.WebRootPath, "authors"));
+
+            postRepository.Initialize(Path.Combine(env.WebRootPath, "posts"));
+            authorRepository.Initialize(Path.Combine(env.WebRootPath, "authors"));
         }
     }
 }

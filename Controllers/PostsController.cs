@@ -20,7 +20,7 @@ namespace Deferat.Controllers
             var pageCount = 0;
             var posts = _postService.GetPosts(pageNumber, out pageCount, tag);
 
-            var viewModel = new PostsViewModel()
+            var viewModel = new PostListViewModel()
             {
                 Posts = posts,
                 PageCount = pageCount,
@@ -32,7 +32,7 @@ namespace Deferat.Controllers
 
         public ActionResult Read(string id)
         {
-            var post = _postService.Posts.FirstOrDefault(p => p.Locator.ToLower() == id.ToLower());
+            var post = _postService.Posts.FirstOrDefault(p => p.Id.ToLower() == id.ToLower());
             if(post != null)
                 return View(post);
 

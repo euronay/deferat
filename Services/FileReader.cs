@@ -1,4 +1,5 @@
 using Deferat.Models;
+using Markdig;
 using Microsoft.Extensions.Logging;
 using System;
 using System.Collections.Generic;
@@ -9,12 +10,23 @@ using YamlDotNet.Serialization.NamingConventions;
 
 namespace Deferat.Services
 {
-    public class FileReader : IFileReader
+    public class FileReader<T> : IFileReader<T> where T : class, IMetadata
     {
-        public (string MetaData, string Text) ReadFile(string path)
+        public T ReadFile(string path)
         {
-            string meta = string.Empty;
-            string text = string.Empty;
+            (string rawMetadata, string rawMarkDown) = ReadFileToText(path);
+
+            T metadata = DeserializeMetadata(rawMetadata);
+
+            metadata.Html = ParseMarkdown(rawMarkDown);
+
+            return metadata;
+        }
+
+        private (string metadata, string markdown) ReadFileToText(string path)
+        {
+            string metadata = string.Empty;
+            string html = string.Empty;
 
             using(var reader = File.OpenText(path))
             {
@@ -25,13 +37,32 @@ namespace Deferat.Services
 
                 while((line = reader.ReadLine()) != "---")
                 {
-                    meta += line + "\r\n";
+                    metadata += line + "\r\n";
                 }
 
-                text = reader.ReadToEnd();
+                html = reader.ReadToEnd();
             }
 
-            return (meta, text);
+            return (metadata, html);
+        }
+
+        private T DeserializeMetadata(string metaData)
+        {
+            var deserializer = new DeserializerBuilder()
+                .WithNamingConvention(new CamelCaseNamingConvention())
+                .Build();
+
+            return deserializer.Deserialize<T>(new StringReader(metaData));
+        }
+
+        private string ParseMarkdown(string markdown)
+        {
+            var pipeline = new MarkdownPipelineBuilder()
+                .UseAdvancedExtensions()
+                .UseAutoIdentifiers()
+                .Build();
+            string html = Markdown.ToHtml(markdown, pipeline);
+            return html;
         }
     } 
 }

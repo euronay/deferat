@@ -1,6 +1,6 @@
 namespace Deferat.Models
 {
-    public class Author
+    public class Author : IMetadata
     {
         public string Id { get; set; }
         public string DisplayName { get; set; }
@@ -8,6 +8,6 @@ namespace Deferat.Models
         public string Github { get; set; }
         public string Image { get; set; }
         public bool Featured { get; set; }
-        public string Blurb { get; set; }
+        public string Html { get; set; }
     }
 }

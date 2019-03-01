@@ -1,7 +1,9 @@
+using Deferat.Models;
+
 namespace Deferat.Services
 {
-    public interface IFileReader
+    public interface IFileReader<T> where T : class, IMetadata
     {
-        (string MetaData, string Text) ReadFile(string path);
+        T ReadFile(string path);
     }
 }
