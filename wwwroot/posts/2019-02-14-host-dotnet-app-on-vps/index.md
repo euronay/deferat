@@ -1,4 +1,5 @@
 ---
+id: 2019-02-14-host-dotnet-app-on-vps
 title: Hosting a .NET Core app on an Ubuntu server
 author: James
 date: 2019-02-14

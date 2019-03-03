@@ -1,4 +1,5 @@
 ---
+id: another-post
 title: Another Post
 author: James
 date: 2019-01-01

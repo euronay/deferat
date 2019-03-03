@@ -50,7 +50,7 @@ namespace Deferat.Repository
             return _dataSet.FirstOrDefault(d => d.Id == id);
         }
 
-        public IEnumerable<T> Get(Expression<Func<T, bool>> filter, Func<IQueryable<T>, IOrderedQueryable<T>> orderBy = null)
+        public IEnumerable<T> Get(Expression<Func<T, bool>> filter = null, Func<IQueryable<T>, IOrderedQueryable<T>> orderBy = null)
         {
             // throw notinitializedexception?
             var query = _dataSet;

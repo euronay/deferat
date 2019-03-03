@@ -33,8 +33,6 @@ namespace Deferat
 
             services.AddMvc().SetCompatibilityVersion(CompatibilityVersion.Version_2_1);
 
-            services.AddSingleton<IPostService, PostService>();
-            services.AddSingleton<IAuthorService, AuthorService>();
             services.AddSingleton<IFormatterService, FormatterService>();
             services.AddSingleton<IFileReader<Post>, FileReader<Post>>();
             services.AddSingleton<IFileReader<Author>, FileReader<Author>>();
@@ -44,8 +42,8 @@ namespace Deferat
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
-        public void Configure(IApplicationBuilder app, IHostingEnvironment env, IPostService postService, 
-            IAuthorService authorService, IRepository<Post> postRepository, IRepository<Author> authorRepository)
+        public void Configure(IApplicationBuilder app, IHostingEnvironment env, IFormatterService formatter, 
+            IRepository<Post> postRepository, IRepository<Author> authorRepository)
         {
             if (env.IsDevelopment())
             {
@@ -80,10 +78,14 @@ namespace Deferat
                     template: "{controller=Home}/{action=Index}/{id?}");
             });
 
-            postService.LoadPosts(Path.Combine(env.WebRootPath, "posts"));
-            authorService.LoadAuthors(Path.Combine(env.WebRootPath, "authors"));
+            postRepository.Initialize(Path.Combine(env.WebRootPath, "posts"), post => {
+                // TODO: tidy this mess up
+                post.Html = formatter.FixImages(post.Html, post.Id);;
+                post.Image = $"/posts/{post.Id}/{post.Image}";
+                post.ShortContent = formatter.CreateTruncatedContent(post.Html, 200);
+                return post;
+            });
 
-            postRepository.Initialize(Path.Combine(env.WebRootPath, "posts"));
             authorRepository.Initialize(Path.Combine(env.WebRootPath, "authors"));
         }
     }

@@ -1,4 +1,5 @@
 ﻿using Deferat.Models;
+using Deferat.Repository;
 using Deferat.Services;
 using Deferat.ViewModels;
 using Microsoft.AspNetCore.Mvc;
@@ -11,26 +12,25 @@ namespace Deferat.Controllers
     public class HomeController : Controller
     {
         private ILogger _logger;
-        private IPostService _postService;
-        private IAuthorService _authorService;
-        public HomeController(ILogger<HomeController> logger, IPostService postService, IAuthorService authorService)
+        private IRepositoryContainer _repositories;
+
+        public HomeController(ILogger<HomeController> logger, IRepositoryContainer repositories)
         {
             _logger = logger;
-            _postService = postService;
-            _authorService = authorService;
+            _repositories = repositories;
         }
         public IActionResult Index()
         {
             _logger.LogDebug("Hello, World");
 
-            ViewData["Posts"] = _postService.Posts.Take(4);
+            ViewData["Posts"] = _repositories.Posts.Get(orderBy: list => list.OrderByDescending(post => post.Date)).Take(4);
 
             return View();
         }
 
         public IActionResult About()
         {
-            var authors = _authorService.Authors;
+            var authors = _repositories.Authors.Get();
 
             return View(authors);
         }

@@ -1,24 +1,40 @@
 
+using Deferat.Repository;
 using Deferat.Services;
 using Deferat.ViewModels;
 using Microsoft.AspNetCore.Mvc;
+using System;
 using System.Linq;
 
 namespace Deferat.Controllers
 {
     public class PostsController : Controller
     {
-        private IPostService _postService;
-        public PostsController(IPostService postService)
+        private const int PostsPerPage = 3;
+        private IRepositoryContainer _repositories;
+        public PostsController(IRepositoryContainer repositories)
         {
-            _postService = postService;
+            _repositories = repositories;
         }
 
         // GET: Posts
         public ActionResult Index(string tag, int pageNumber = 1)
         {
             var pageCount = 0;
-            var posts = _postService.GetPosts(pageNumber, out pageCount, tag);
+
+            var posts = _repositories.Posts.Get(orderBy: list => list.OrderByDescending(post => post.Date));
+            if(!String.IsNullOrEmpty(tag))
+            {
+                posts = posts.Where(p => p.Categories.Contains(tag));
+            }
+            
+            pageCount = (posts.Count() - 1) / PostsPerPage + 1;
+
+            if (pageNumber > pageCount)
+                throw new ArgumentException($"Requested page {pageNumber} but there are only {pageCount} pages");
+
+            posts = posts.Skip((pageNumber - 1) * PostsPerPage).Take(PostsPerPage);
+
 
             var viewModel = new PostListViewModel()
             {
@@ -32,7 +48,7 @@ namespace Deferat.Controllers
 
         public ActionResult Read(string id)
         {
-            var post = _postService.Posts.FirstOrDefault(p => p.Id.ToLower() == id.ToLower());
+            var post = _repositories.Posts.Get(id.ToLower());
             if(post != null)
                 return View(post);
 
