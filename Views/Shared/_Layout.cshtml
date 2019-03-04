@@ -3,7 +3,20 @@
 <head>
     <meta charset="utf-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>Deferat - @ViewData["Title"]</title>
+
+    <title>James Naylor - @ViewData["Title"]</title>
+    <link rel="shortcut icon" href="~/favicon.ico" type="image/x-icon" />
+
+    <!-- Meatadata for Rich Previews -->
+    <meta property="og:title" content='James Naylor - @ViewData["Title"]' />
+    <meta property="og:description" content='@ViewData["Description"]' />
+    <meta property="og:url" content="https://@Context.Request.Host@Context.Request.Path" />
+    <meta property="og:image" content='@ViewData["Image"]' />
+    
+    <!-- Meatadata for Titlebar color -->
+    <meta name="theme-color" content="#343A40" />
+    <meta name="msapplication-navbutton-color" content="#343A40">
+    <meta name="apple-mobile-web-app-status-bar-style" content="#343A40">
 
     <!-- Bootstrap -->
     <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.2.1/css/bootstrap.min.css" integrity="sha384-GJzZqFGwb1QTTN6wy59ffF1BuGJpLSa9DkKMp0DgiMDm4iYMj70gZWKYbI706tWS" crossorigin="anonymous">
@@ -38,7 +51,7 @@
     <header>
         <!-- Fixed navbar -->
         <nav class="navbar navbar-expand-md navbar-dark fixed-top bg-dark">
-            <a asp-area="" asp-controller="Home" asp-action="Index" class="navbar-brand">Δ Deferat</a>
+            <a asp-area="" asp-controller="Home" asp-action="Index" class="navbar-brand">James<span class="text-info">Naylor</span>.dev</a>
             <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarCollapse" aria-controls="navbarCollapse" aria-expanded="false" aria-label="Toggle navigation">
                 <span class="navbar-toggler-icon"></span>
             </button>

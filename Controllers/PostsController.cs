@@ -49,10 +49,11 @@ namespace Deferat.Controllers
         public ActionResult Read(string id)
         {
             var post = _repositories.Posts.Get(id.ToLower());
-            if(post != null)
-                return View(post);
+            if(post == null)
+                return new StatusCodeResult(404);
+            
+            return View(post);
 
-            throw new System.Exception("?");
         }
 
     }
