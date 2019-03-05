@@ -1,12 +1,12 @@
-@model Post
+@model PostViewModel
 
 @{
-    ViewData["Title"] = @Model.Title;
-    ViewData["Description"] = @Model.Description;
-    ViewData["Image"] = $"https://{Context.Request.Host}{Model.Image}";
+    ViewData["Title"] = @Model.Post.Title;
+    ViewData["Description"] = @Model.Post.Description;
+    ViewData["Image"] = $"https://{Context.Request.Host}{Model.Post.Image}";
 }
 
-<div class="jumbotron jumbotron-main text-white" style="background: url('@Model.Image'); " >
+<div class="jumbotron jumbotron-main text-white" style="background: url('@Model.Post.Image'); " >
 
 </div> 
 

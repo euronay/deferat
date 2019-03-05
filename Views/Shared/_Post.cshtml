@@ -1,16 +1,17 @@
-@model Post
+@model PostViewModel
 
 <div class="row convert-emoji">
     <div class="col-sm-12 text-center">
-        <h1><a asp-controller="Posts" asp-action="Read" asp-route-id="@Model.Id" class="display-4">@Model.Title</a></h1>
+        <h1><a asp-controller="Posts" asp-action="Read" asp-route-id="@Model.Post.Id" class="display-4">@Model.Post.Title</a></h1>
     </div>
 </div>
 <div class="row convert-emoji mt-4">
     <div class="col-sm-2">
-        <div class="text-right">
-            @Model.Date.ToShortDateString()<br />  
-            <span class="font-weight-bold">@Model.Author</span><br />
-            @foreach (var tag in Model.Categories)
+        <div class="text-right">  
+            <img class="avatar shadow" src="~/images/@Model.AuthorImage" /><br />
+            <span class="font-weight-bold">@Model.AuthorName</span><br />
+            @Model.Post.Date.ToShortDateString()<br />
+            @foreach (var tag in Model.Post.Categories)
             {
                 <a asp-controller="Posts" asp-action="Index" asp-route-tag="@tag" 
                     asp-route-pagenumber="1" class="badge badge-pill badge-primary">
@@ -23,11 +24,11 @@
 
         @if (ViewData["Short"] != null)
         {
-            @Html.Raw(Model.ShortContent)
+            @Html.Raw(Model.Post.ShortContent)
         }
         else
         {
-            @Html.Raw(Model.Html)
+            @Html.Raw(Model.Post.Html)
         }
     </div>
 </div>

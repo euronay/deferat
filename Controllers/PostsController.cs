@@ -1,4 +1,5 @@
 
+using Deferat.Models;
 using Deferat.Repository;
 using Deferat.Services;
 using Deferat.ViewModels;
@@ -38,7 +39,7 @@ namespace Deferat.Controllers
 
             var viewModel = new PostListViewModel()
             {
-                Posts = posts,
+                Posts = posts.Select(p => CreatePostViewModel(p)),
                 PageCount = pageCount,
                 CurrentPage = pageNumber
             };
@@ -52,8 +53,23 @@ namespace Deferat.Controllers
             if(post == null)
                 return new StatusCodeResult(404);
             
-            return View(post);
+            return View(CreatePostViewModel(post));
 
+        }
+
+        private PostViewModel CreatePostViewModel(Post post)
+        {
+            PostViewModel postViewModel = new PostViewModel()
+            {
+                Post = post
+            };
+
+            var author = _repositories.Authors.Get(post.Author.ToLower());
+            
+            postViewModel.AuthorName = author != null ? author.DisplayName : "Anonymous";
+            postViewModel.AuthorImage = author != null ? author.Image : "";
+
+            return postViewModel;         
         }
 
     }

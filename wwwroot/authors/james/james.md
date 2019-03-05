@@ -1,5 +1,5 @@
 ---
-id: James
+id: james
 displayName: James Naylor
 twitter: euronay
 github: euronay

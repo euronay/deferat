@@ -1,5 +1,5 @@
 ﻿@{
-    ViewData["Title"] = "Home";
+    ViewData["Title"] = "James Naylor";
     ViewData["Description"] = "Programming blog";
     ViewData["Image"] = $"https://{Context.Request.Host}/images/cristian-palmer-716730-unsplash.jpg";
 }
@@ -24,11 +24,11 @@
     <div class="container mt-5">
         <div class="row">
             <div class="col-md-12 d-flex align-items-stretch">
-                    @await Html.PartialAsync("_PostCard", ((IEnumerable<Post>)ViewData["Posts"]).First())
+                    @await Html.PartialAsync("_PostCard", ((IEnumerable<PostViewModel>)ViewData["Posts"]).First())
                 </div>
         </div>
         <div class="row">
-            @foreach (var post in ((IEnumerable<Post>)ViewData["Posts"]).Skip(1))
+            @foreach (var post in ((IEnumerable<PostViewModel>)ViewData["Posts"]).Skip(1))
             {
                 <div class="col-md-4 d-flex align-items-stretch">
                     @await Html.PartialAsync("_PostCard", post)

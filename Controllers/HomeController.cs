@@ -21,7 +21,7 @@ namespace Deferat.Controllers
         }
         public IActionResult Index()
         {
-            ViewData["Posts"] = _repositories.Posts.Get(orderBy: list => list.OrderByDescending(post => post.Date)).Take(4);
+            ViewData["Posts"] = _repositories.Posts.Get(orderBy: list => list.OrderByDescending(post => post.Date)).Take(4).Select(p => new PostViewModel(){Post = p});
 
             return View();
         }

@@ -103,3 +103,9 @@ h2 a, h2 a:active, h2 a:visited, h2 a:hover {
     background-color: #f9fcff;
     padding-top: 1.5rem;
 }
+
+.avatar {
+    width: 5rem;
+    height: 5rem;
+    border-radius: 50% !important;
+}
