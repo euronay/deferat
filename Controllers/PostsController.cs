@@ -41,7 +41,8 @@ namespace Deferat.Controllers
             {
                 Posts = posts.Select(p => CreatePostViewModel(p)),
                 PageCount = pageCount,
-                CurrentPage = pageNumber
+                CurrentPage = pageNumber,
+                Tag = tag
             };
 
             return View(viewModel);

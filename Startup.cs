@@ -7,6 +7,8 @@ using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
+using Microsoft.Extensions.FileProviders;
+using System;
 using System.IO;
 
 namespace Deferat
@@ -55,8 +57,26 @@ namespace Deferat
                 app.UseHsts();
             }
 
-            //app.UseHttpsRedirection();
             app.UseStaticFiles();
+
+            var postsDir = Environment.GetEnvironmentVariable("POSTS_DIR");
+            if(!String.IsNullOrWhiteSpace(postsDir))
+            {
+                app.UseStaticFiles(new StaticFileOptions(){
+                    FileProvider = new PhysicalFileProvider(postsDir),
+                    RequestPath = "/Posts"
+                });
+            }
+
+            var authorDir = Environment.GetEnvironmentVariable("AUTHORS_DIR");
+            if(!String.IsNullOrWhiteSpace(authorDir))
+            {
+                app.UseStaticFiles(new StaticFileOptions(){
+                    FileProvider = new PhysicalFileProvider(authorDir),
+                    RequestPath = "/Authors"
+                });
+            }
+
             app.UseCookiePolicy();
 
             app.UseMvc(routes =>
@@ -75,7 +95,7 @@ namespace Deferat
                     defaults: new {Controller = "Posts", Action="Post" });
                 routes.MapRoute(
                     name: "default",
-                    template: "{controller=Home}/{action=Index}/{id?}");
+                    template: "{controller=Posts}/{action=Index}");
             });
 
             postRepository.Initialize(Path.Combine(env.WebRootPath, "posts"), post => {

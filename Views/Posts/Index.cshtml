@@ -4,8 +4,27 @@
     ViewData["Title"] = "Posts";
 }
 
+<div class="jumbotron jumbotron-main text-white" >
+        <div class="container">
+            <div class="row">
+                <div class="col-sm-12">
+                    <h1 class="display-3">James<span class="text-info">Naylor</span>.dev</h1>
+                    <p class="lead">Programming blog</p>
+                </div>
+            </div>
+            
+            
+        </div>
+    </div> 
 
 <div class="container">
+
+    @if (!String.IsNullOrWhiteSpace(Model.Tag))
+    {
+        <div class="row mt-5 lead text-center">
+            Showing posts for tag &nbsp;<span class="badge badge-pill badge-primary">@Model.Tag</span>
+        </div>
+    }
 
     @if (Model.Posts.Count() == 0)
     {
