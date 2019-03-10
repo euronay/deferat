@@ -11,7 +11,7 @@ namespace Deferat.Controllers
 {
     public class PostsController : Controller
     {
-        private const int PostsPerPage = 3;
+        private const int PostsPerPage = 10;
         private IRepositoryContainer _repositories;
         public PostsController(IRepositoryContainer repositories)
         {

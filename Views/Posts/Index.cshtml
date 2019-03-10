@@ -13,15 +13,14 @@
             Nothing to see here!
         </div>
     }
-
+    <div class="card-deck">
     @foreach (var post in Model.Posts)
     {
-        <div class="row mt-5">
-            <div class="container rounded shadow" style="background-color: #f9fcff">
-                @await Html.PartialAsync("_Post", post, new ViewDataDictionary(this.ViewData){{"Short", true}})
-            </div>
+        <div class="col-sm-4 mt-5">
+            @await Html.PartialAsync("_PostCard", post, new ViewDataDictionary(this.ViewData){{"Short", true}})
         </div>
     }
+    </div>
 
     <div class="row mt-5">
         <div class="col-sm-6">
