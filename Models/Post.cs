@@ -13,6 +13,7 @@ namespace Deferat.Models
         public IEnumerable<string> Categories { get; set; }
         public string Html { get; set; }
         public string Image {get; set;}
+        public string ImageCredit {get; set;}
         public bool Featured { get; set; }
         public string ShortContent { get; set; }
     }

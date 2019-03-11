@@ -1,7 +1,7 @@
 @model PostListViewModel
 
 @{
-    ViewData["Title"] = "Posts";
+    ViewData["Title"] = "JamesNaylor.dev";
 }
 
 <div class="jumbotron jumbotron-main text-white" >
@@ -35,7 +35,7 @@
     <div class="card-deck">
     @foreach (var post in Model.Posts)
     {
-        <div class="col-sm-4 mt-5">
+        <div class="col-sm-4 mb-3">
             @await Html.PartialAsync("_PostCard", post, new ViewDataDictionary(this.ViewData){{"Short", true}})
         </div>
     }

@@ -1,17 +1,26 @@
 @model PostViewModel
 
 <div class="card">
-    <div class="card-img-wrapper">
+    <a asp-controller="Posts" asp-action="Read" asp-route-id="@Model.Post.Id">
+    <div class="card-img-wrapper shadow">
         <img class="card-img-top img-fluid" src="@Model.Post.Image" />
     </div>
-    <div class="card-body convert-emoji">
+    </a>
+    <div class="card-body mt-1 convert-emoji">
         <h4 class="card-title"><a asp-controller="Posts" asp-action="Read" asp-route-id="@Model.Post.Id">@Model.Post.Title</a></h4>                    
+        <div class="byline"><span class="text-muted">@Model.Post.Date.ToShortDateString()</span> &middot; <span class="text-muted">@Model.AuthorName</span></div>
         <div>
             @Html.Raw(Model.Post.ShortContent)
         </div>
-        
     </div>
     <div class="card-footer">
-        <a asp-controller="Posts" asp-action="Read" asp-route-id="@Model.Post.Id" class="btn btn-primary">Read</a>
+        @foreach (var tag in Model.Post.Categories)
+        {
+            <a asp-controller="Posts" asp-action="Index" asp-route-tag="@tag" 
+                asp-route-pagenumber="1" class="badge badge-pill badge-primary">
+                @tag
+            </a>
+        }
     </div>
+    <img class="avatar shadow" src="~/images/@Model.AuthorImage" />
 </div>

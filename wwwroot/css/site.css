@@ -20,7 +20,8 @@ body {
 .bg-dark {
 
     background-color: #343A40 !important;
-
+    background-image: url('../images/prism.png');
+    background-repeat: repeat;
 }
 
 h1, h2, .navbar-brand {
@@ -61,7 +62,6 @@ h2 a, h2 a:active, h2 a:visited, h2 a:hover {
     width: 100%;
     /* Set the fixed height of the footer here */
     height: 3.5rem;
-    background-color: #d0dbe2;
 }
 
 .card{
@@ -108,4 +108,16 @@ h2 a, h2 a:active, h2 a:visited, h2 a:hover {
     width: 5rem;
     height: 5rem;
     border-radius: 50% !important;
+}
+
+.card .avatar {
+    position: absolute;
+    top: 6.5rem;
+    right: 1rem;
+}
+
+.card .byline {
+    font-size: 0.9rem;
+    margin-top: -0.5rem;
+    padding-bottom: 0.5rem;
 }
