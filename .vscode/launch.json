@@ -10,7 +10,7 @@
             "request": "launch",
             "preLaunchTask": "build",
             // If you have changed target frameworks, make sure to update the program path.
-            "program": "${workspaceFolder}/bin/Debug/netcoreapp2.2/deferat.dll",
+            "program": "${workspaceFolder}/src/bin/Debug/netcoreapp2.2/deferat.dll",
             "args": [],
             "cwd": "${workspaceFolder}",
             "stopAtEntry": false,
@@ -30,7 +30,9 @@
                 }
             },
             "env": {
-                "ASPNETCORE_ENVIRONMENT": "Development"
+                "ASPNETCORE_ENVIRONMENT": "Development",
+                "POSTS": "${workspaceFolder}/Posts",
+                "AUTHORS": "${workspaceFolder}/Authors"
             },
             "sourceFileMap": {
                 "/Views": "${workspaceFolder}/Views"

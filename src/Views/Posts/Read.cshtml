@@ -1,0 +1,24 @@
+@model PostViewModel
+
+@{
+    ViewData["Title"] = @Model.Post.Title;
+    ViewData["Description"] = @Model.Post.Description;
+    ViewData["Image"] = $"https://{Context.Request.Host}{Model.Post.Image}";
+}
+
+<div class="jumbotron jumbotron-main text-white" style="background: url('@Model.Post.Image'); " >
+
+    @if (!String.IsNullOrWhiteSpace(Model.Post.ImageCredit)){
+        <div class="credit">
+            <i class="fa fa fa-image shadow"></i>
+            <div class="creditText">@Html.Raw(@Model.Post.ImageCredit)</div>
+        </div>
+    }
+</div> 
+
+<div class="container jumbo-overlaid rounded shadow">
+
+    @await Html.PartialAsync("_Post")
+
+</div>
+
