@@ -51,10 +51,17 @@ h2 a, h2 a:active, h2 a:visited, h2 a:hover {
     background: url('../images/cristian-palmer-716730-unsplash.jpg'); 
     background-size: 100% auto !important;  
     background-position: center !important; 
+    background-repeat: no-repeat;
     padding-top: 5rem;
     padding-bottom: 5rem;
     height: 20rem;
     border-radius: 0 !important;
+}
+
+@media (max-width: 460px) {
+    .jumbotron-main {
+        background-position: top left !important;
+    }
 }
 
 .footer {
@@ -103,7 +110,6 @@ h2 a, h2 a:active, h2 a:visited, h2 a:hover {
     margin-top: -10rem;
     background-color: #f9fcff;
     padding-top: 1.5rem;
-    min-height: 100%;
 }
 
 .avatar {
