@@ -9,5 +9,6 @@ namespace Deferat.ViewModels
         public Post Post { get; set; }
         public string AuthorName { get; set; }
         public string AuthorImage { get; set; }
+        public string AuthorTwitter{ get; set; }
     }
 }

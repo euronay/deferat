@@ -69,6 +69,7 @@ namespace Deferat.Controllers
             
             postViewModel.AuthorName = author != null ? author.DisplayName : "Anonymous";
             postViewModel.AuthorImage = author != null ? author.Image : "";
+            postViewModel.AuthorTwitter = author != null ? author.Twitter : "";
 
             return postViewModel;         
         }

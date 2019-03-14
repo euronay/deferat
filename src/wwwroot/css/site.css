@@ -157,3 +157,8 @@ h2 a, h2 a:active, h2 a:visited, h2 a:hover {
 .credit i:hover + .creditText {
     opacity: 1.0;
 }
+
+.share, .share:active, .share:visited {
+    color: #343A40;
+    padding: 0.5rem;
+}
