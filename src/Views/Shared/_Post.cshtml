@@ -26,9 +26,9 @@
 <div class="row convert-emoji mt-2 pb-2">
     <div class="col-sm-12 card-footer text-right lead">
         Share on 
-        <a class="share" href='@($"https://www.facebook.com/sharer.php?u=https%3A%2F%2F{Context.Request.Host}{Context.Request.Path}")'><i class="fab fa-facebook-f"></i></a> 
-        <a class="share" href='@($"https://twitter.com/intent/tweet?text={Model.Post.Title}&amp;url=https%3A%2F%2F{Context.Request.Host}{Context.Request.Path}&amp;via={Model.AuthorTwitter}")'><i class="fab fa-twitter"></i></a>
-        <a class="share" href='@($"https://www.linkedin.com/shareArticle?mini=true&amp;url=https%3A%2F%2F{Context.Request.Host}{Context.Request.Path}&amp;summary={Model.Post.Description}&amp;source=https%3A%2F%2F{Context.Request.Host}")'><i class="fab fa-linkedin-in"></i></a>
-        <a class="share" href='@($"https://getpocket.com/edit?url=https%3A%2F%2F{Context.Request.Host}{Context.Request.Path}")'><i class="fab fa-get-pocket"></i></a> 
+        <a class="share" href='@($"https://www.facebook.com/sharer.php?u={Context.Request.Scheme}%3A%2F%2F{Context.Request.Host}{Context.Request.Path}{Context.Request.QueryString}")'><i class="fab fa-facebook-f"></i></a> 
+        <a class="share" href='@($"https://twitter.com/intent/tweet?text={Model.Post.Title}&amp;url={Context.Request.Scheme}%3A%2F%2F{Context.Request.Host}{Context.Request.Path}{Context.Request.QueryString}&amp;via={Model.AuthorTwitter}")'><i class="fab fa-twitter"></i></a>
+        <a class="share" href='@($"https://www.linkedin.com/shareArticle?mini=true&amp;url={Context.Request.Scheme}%3A%2F%2F{Context.Request.Host}{Context.Request.Path}{Context.Request.QueryString}&amp;summary={Model.Post.Description}&amp;source={Context.Request.Scheme}%3A%2F%2F{Context.Request.Host}{Context.Request.QueryString}")'><i class="fab fa-linkedin-in"></i></a>
+        <a class="share" href='@($"https://getpocket.com/edit?url={Context.Request.Scheme}%3A%2F%2F{Context.Request.Host}{Context.Request.Path}{Context.Request.QueryString}")'><i class="fab fa-get-pocket"></i></a> 
     </div>
 </div>
