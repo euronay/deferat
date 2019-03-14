@@ -44,3 +44,55 @@ Then run
 ```bash
 $ sudo service jenkins restart
 ```
+
+## Granting users access to the `/var/www` directory
+
+We need to grant our `jenkins` user access to the `/var/www` folder in order to be able to publish there. So to do so, we make `www-root` the owner fo that directory and then add our `jenkins` user to that group:
+
+```bash
+sudo chown -R www-data:www-data /var/www
+sudo chmod -R g+rwX /var/www
+sudo adduser jenkins www-data
+```
+
+## Allowing `jenkins` to restart our service
+
+We also need to allow jenkins to restart the service we made in the last step. So we allow it specifically to run only the command we need.
+
+First we add the `jenkins` user to a new group (we'll call it `appadmin`):
+
+```bash
+$ sudo groupadd appadmin
+$ sudo usermod -a -G appadmin jenkins
+```
+
+The we restrict what the `appadmin` users can do by modifying the `sudoers` file
+```bash
+$ sudo nano /etc/sudoers
+```
+
+```
+Cmnd_Alias MYAPP_CMNDS = /bin/systemctl start myapp, /bin/systemctl stop myapp
+%appadmin ALL=(ALL) NOPASSWD: MYAPP_CMNDS
+```
+or when `jenkins` is in sudo group???
+```
+jenkins ALL= NOPASSWD: /usr/sbin/service deferat
+```
+
+# Set up the build on Jenkins
+
+We set up a job with the folowing commands:
+
+```bash
+dotnet publish src -o /var/www/<app>
+```
+
+```bash
+sudo service <app> restart
+```
+
+So we need to give the jenkins user access to our app folder with
+```
+sudo chmod -R 777 /var/www/<app>
+```
