@@ -11,6 +11,7 @@ using Microsoft.Extensions.FileProviders;
 using System;
 using System.IO;
 using Microsoft.Extensions.Logging;
+using System.Linq;
 
 namespace Deferat
 {
@@ -111,6 +112,7 @@ namespace Deferat
                 post.Html = formatter.FixImages(post.Html, post.Id);;
                 post.Image = $"/posts/{post.Id}/{post.Image}";
                 post.ShortContent = formatter.CreateTruncatedContent(post.Html, 200);
+                post.Categories = post.Categories.OrderBy(c => c);
                 return post;
             });
 

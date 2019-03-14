@@ -42,10 +42,23 @@
             @:<div class="card-deck mt-5">
         }
 
-        @await Html.PartialAsync("_PostCard", post, new ViewDataDictionary(this.ViewData){{"Short", true}})
+        @await Html.PartialAsync("_PostCard", post)
         
-        if(i == Model.Posts.Count() || i % 3 == 2)
+        // This will layout our cards in rows of three
+        if(i == Model.Posts.Count()-1 || i % 3 == 2)
         {
+            // If it's the final card, add some invisible ones to pad
+            if(i == Model.Posts.Count()-1)
+            {
+                if(i % 3 == 1){
+                    @:<div class="card invisible"></div>
+                }
+                else if(i % 3 == 0)
+                {
+                    @:<div class="card invisible"></div>
+                    @:<div class="card invisible"></div>
+                }
+            }
             @:</div>
         }
     }
