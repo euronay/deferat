@@ -40,9 +40,9 @@ namespace Deferat
             services.AddSingleton<IFormatterService, FormatterService>();
             services.AddSingleton<IFileReader<Post>, FileReader<Post>>();
             services.AddSingleton<IFileReader<Author>, FileReader<Author>>();
-            services.AddSingleton<IRepository<Post>, Repository<Post>>();
-            services.AddSingleton<IRepository<Author>, Repository<Author>>();
-            services.AddSingleton<IRepositoryContainer, RepositoryContainer>();
+            services.AddTransient<IRepository<Post>, Repository<Post>>();
+            services.AddTransient<IRepository<Author>, Repository<Author>>();
+            services.AddTransient<IRepositoryContainer, RepositoryContainer>();
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
