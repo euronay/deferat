@@ -33,17 +33,12 @@ namespace Deferat.Repository
             }
         }
 
-        public Repository(ILogger<Repository<T>> logger, IFileReader<T> fileReader)
+        public Repository(string path, Func<T, T> postProcessor, ILogger<Repository<T>> logger, IFileReader<T> fileReader)
         {
             _logger = logger;
             _fileReader = fileReader;
-        }
-
-        public void Initialize(string path, Func<T, T> postProcessor = null)
-        {
             _path = path;
             _processor = postProcessor;
-
             _logger.LogInformation($"Loading data files from {path}...");
         }
 

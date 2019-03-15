@@ -10,6 +10,5 @@ namespace Deferat.Repository
     {
         T Get(string id);
         IEnumerable<T> Get (Expression<Func<T, bool>> filter = null, Func<IQueryable<T>, IOrderedQueryable<T>> orderBy = null);
-        void Initialize(string path, Func<T, T> postProcessor = null);
     }
 }

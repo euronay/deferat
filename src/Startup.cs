@@ -33,16 +33,33 @@ namespace Deferat
             //     options.CheckConsentNeeded = context => true;
             //     options.MinimumSameSitePolicy = SameSiteMode.None;
             // });
-
+            var postsDir = Environment.GetEnvironmentVariable("POSTS");
+            var authorDir = Environment.GetEnvironmentVariable("AUTHORS");
 
             services.AddMvc().SetCompatibilityVersion(CompatibilityVersion.Version_2_1);
 
             services.AddSingleton<IFormatterService, FormatterService>();
             services.AddSingleton<IFileReader<Post>, FileReader<Post>>();
             services.AddSingleton<IFileReader<Author>, FileReader<Author>>();
-            services.AddTransient<IRepository<Post>, Repository<Post>>();
-            services.AddTransient<IRepository<Author>, Repository<Author>>();
-            services.AddTransient<IRepositoryContainer, RepositoryContainer>();
+            services.AddScoped<IRepository<Post>>(ctx => new Repository<Post>(
+                postsDir, 
+                post => {
+                    // TODO: tidy this mess up
+                    var formatter = ctx.GetService<IFormatterService>();
+                    post.Html = formatter.FixImages(post.Html, post.Id);;
+                    post.Image = $"/posts/{post.Id}/{post.Image}";
+                    post.ShortContent = formatter.CreateTruncatedContent(post.Html, 200);
+                    post.Categories = post.Categories.OrderBy(c => c);
+                    return post;
+                }, 
+                ctx.GetService<ILogger<Repository<Post>>>(), 
+                ctx.GetService<IFileReader<Post>>()));
+            services.AddScoped<IRepository<Author>>(ctx => new Repository<Author>(authorDir,
+                author => author, 
+                ctx.GetService<ILogger<Repository<Author>>>(), 
+                ctx.GetService<IFileReader<Author>>()));
+
+            services.AddScoped<IRepositoryContainer, RepositoryContainer>();
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
@@ -106,17 +123,6 @@ namespace Deferat
                     name: "default",
                     template: "{controller=Posts}/{action=Index}");
             });
-
-            postRepository.Initialize(postsDir, post => {
-                // TODO: tidy this mess up
-                post.Html = formatter.FixImages(post.Html, post.Id);;
-                post.Image = $"/posts/{post.Id}/{post.Image}";
-                post.ShortContent = formatter.CreateTruncatedContent(post.Html, 200);
-                post.Categories = post.Categories.OrderBy(c => c);
-                return post;
-            });
-
-            authorRepository.Initialize(authorDir);
         }
     }
 }
