@@ -14,6 +14,24 @@ namespace Deferat.Repository
         private ILogger _logger;
         private IFileReader<T> _fileReader;
         private IQueryable<T> _dataSet;
+        private string _path;
+        private Func<T,T> _processor;
+
+        private IQueryable<T> Dataset
+        {
+            get
+            {
+                if (_dataSet == null)
+                {
+                    _dataSet = LoadData();
+                }
+                return _dataSet;
+            }
+            set
+            {
+                _dataSet = value;
+            }
+        }
 
         public Repository(ILogger<Repository<T>> logger, IFileReader<T> fileReader)
         {
@@ -23,37 +41,22 @@ namespace Deferat.Repository
 
         public void Initialize(string path, Func<T, T> postProcessor = null)
         {
+            _path = path;
+            _processor = postProcessor;
+
             _logger.LogInformation($"Loading data files from {path}...");
-
-            var directories = Directory.GetDirectories(path);
-
-            var dataList = new List<T>();
-            foreach(var directory in directories)
-            {
-                var file = Directory.GetFiles(directory, "*.md").FirstOrDefault();
-                if(file == null)
-                    continue;
-                    
-                var dataFile = _fileReader.ReadFile(file);
-                if(postProcessor != null)
-                    dataFile = postProcessor(dataFile);
-                
-                dataList.Add(dataFile);                
-            }
-
-            _dataSet = dataList.AsQueryable();
         }
 
         public T Get(string id)
         {
             // throw notinitializedexception?
-            return _dataSet.FirstOrDefault(d => d.Id == id);
+            return Dataset.FirstOrDefault(d => d.Id == id);
         }
 
         public IEnumerable<T> Get(Expression<Func<T, bool>> filter = null, Func<IQueryable<T>, IOrderedQueryable<T>> orderBy = null)
         {
             // throw notinitializedexception?
-            var query = _dataSet;
+            var query = Dataset;
 
             if (filter != null)
             {
@@ -66,6 +69,27 @@ namespace Deferat.Repository
             }
 
             return query.AsEnumerable();
+        }
+
+        private IQueryable<T> LoadData()
+        {
+            var directories = Directory.GetDirectories(_path);
+
+            var dataList = new List<T>();
+            foreach(var directory in directories)
+            {
+                var file = Directory.GetFiles(directory, "*.md").FirstOrDefault();
+                if(file == null)
+                    continue;
+                    
+                var dataFile = _fileReader.ReadFile(file);
+                if(_processor != null)
+                    dataFile = _processor(dataFile);
+                
+                dataList.Add(dataFile);                
+            }
+
+            return dataList.AsQueryable();
         }
     }
 }
