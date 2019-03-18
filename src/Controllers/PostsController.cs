@@ -24,7 +24,7 @@ namespace Deferat.Controllers
         {
             var pageCount = 0;
 
-            var posts = _repositories.Posts.Get(orderBy: list => list.OrderByDescending(post => post.Date));
+            var posts = _repositories.Posts.Get(filter: p => !p.Draft,  orderBy: list => list.OrderByDescending(post => post.Date));
             if(!String.IsNullOrEmpty(tag))
             {
                 posts = posts.Where(p => p.Categories.Contains(tag));

@@ -78,6 +78,8 @@ namespace Deferat.Repository
                     continue;
                     
                 var dataFile = _fileReader.ReadFile(file);
+                // TODO - this is a bit messy - set the ID of the article to be the directory name
+                dataFile.Id = new FileInfo(directory).Name.ToLower();
                 if(_processor != null)
                     dataFile = _processor(dataFile);
                 

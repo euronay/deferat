@@ -1,5 +1,4 @@
 ---
-id: test-post
 title: Test Post
 author: James
 date: 2019-01-01

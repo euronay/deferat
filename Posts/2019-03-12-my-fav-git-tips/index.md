@@ -1,5 +1,4 @@
 ---
-id: 2019-03-12-my-fav-git-tips
 title: My favourite Git tips ❤️
 description: A collection of useful git tips I've picked up
 author: James

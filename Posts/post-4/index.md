@@ -1,5 +1,4 @@
 ---
-id: post-4
 title: Post Number 4
 author: James
 date: 2019-02-07

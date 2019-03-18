@@ -15,6 +15,7 @@ namespace Deferat.Models
         public string Image {get; set;}
         public string ImageCredit {get; set;}
         public bool Featured { get; set; }
+        public bool Draft { get; set; }
         public string ShortContent { get; set; }
     }
 
