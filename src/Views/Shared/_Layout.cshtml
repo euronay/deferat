@@ -7,13 +7,20 @@
     <title>@ViewData["Title"]</title>
     <link rel="shortcut icon" href="~/favicon.ico" type="image/x-icon" />
 
-    <!-- Meatadata for Rich Previews -->
+    <!-- Metadata for Rich Previews -->
     <meta property="og:title" content='@ViewData["Title"]' />
     <meta property="og:description" content='@ViewData["Description"]' />
     <meta property="og:url" content="https://@Context.Request.Host@Context.Request.Path" />
     <meta property="og:image" content='@ViewData["Image"]' />
+
+    <!-- Metadata for Twitter cards -->
+    <meta name="twitter:card" content="summary" />
+    <meta name="twitter:url" content="https://@Context.Request.Host@Context.Request.Path" />
+    <meta name="twitter:title" content='@ViewData["Title"]' />
+    <meta name="twitter:description" content='@ViewData["Description"]' />
+    <meta name="twitter:image" content='@ViewData["Image"]' />
     
-    <!-- Meatadata for Titlebar color -->
+    <!-- Metadata for Titlebar color -->
     <meta name="theme-color" content="#343A40" />
     <meta name="msapplication-navbutton-color" content="#343A40">
     <meta name="apple-mobile-web-app-status-bar-style" content="#343A40">
