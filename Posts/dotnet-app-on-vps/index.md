@@ -4,7 +4,7 @@ description: How to host a .NET Core app on a Linux VPS
 author: James
 date: 2019-03-24
 categories: 
-    - dotnet
+    - .net core
     - devops
     - vps
     - linux

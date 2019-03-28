@@ -29,7 +29,7 @@ namespace Deferat.Services
                 _logger.LogInformation($"Text: {text}");
                 _logger.LogInformation($"Html {shortDoc.DocumentNode.OuterHtml}");
 
-                if(text.Length > maxLength)
+                if(text.Length > maxLength || node.FirstChild?.Name == "img")
                     return shortDoc.DocumentNode.OuterHtml;
             }
 
