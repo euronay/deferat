@@ -17,24 +17,18 @@ namespace Deferat
 {
     public class Startup
     {
-        public Startup(IConfiguration configuration)
-        {
-            Configuration = configuration;
-        }
+        private readonly IHostingEnvironment _env;
 
-        public IConfiguration Configuration { get; }
+        public Startup(IHostingEnvironment env)
+        {
+            _env = env;
+        }
 
         // This method gets called by the runtime. Use this method to add services to the container.
         public void ConfigureServices(IServiceCollection services)
         {
-            // services.Configure<CookiePolicyOptions>(options =>
-            // {
-            //     // This lambda determines whether user consent for non-essential cookies is needed for a given request.
-            //     options.CheckConsentNeeded = context => true;
-            //     options.MinimumSameSitePolicy = SameSiteMode.None;
-            // });
-            var postsDir = Environment.GetEnvironmentVariable("POSTS");
-            var authorDir = Environment.GetEnvironmentVariable("AUTHORS");
+            var postsDir = Environment.GetEnvironmentVariable("POSTS") ?? Path.Combine(_env.ContentRootPath, "../Posts");
+            var authorDir = Environment.GetEnvironmentVariable("AUTHORS") ?? Path.Combine(_env.ContentRootPath, "../Authors");
 
             services.AddMvc().SetCompatibilityVersion(CompatibilityVersion.Version_2_1);
 
@@ -63,10 +57,10 @@ namespace Deferat
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
-        public void Configure(IApplicationBuilder app, IHostingEnvironment env, ILogger<Startup> logger, IFormatterService formatter, 
+        public void Configure(IApplicationBuilder app, ILogger<Startup> logger, IFormatterService formatter, 
             IRepository<Post> postRepository, IRepository<Author> authorRepository)
         {
-            if (env.IsDevelopment())
+            if (_env.IsDevelopment())
             {
                 app.UseDeveloperExceptionPage();
             }
@@ -76,30 +70,26 @@ namespace Deferat
                 app.UseHsts();
             }
 
-            var postsDir = Environment.GetEnvironmentVariable("POSTS");
-            logger.LogInformation($"Posts directory: {postsDir}");
-
-            if(!String.IsNullOrWhiteSpace(postsDir))
+            logger.LogInformation($"Posts directory: {postRepository.BasePath}");
+            if(!String.IsNullOrWhiteSpace(postRepository.BasePath))
             {
                 app.UseStaticFiles(new StaticFileOptions(){
-                    FileProvider = new PhysicalFileProvider(postsDir),
+                    FileProvider = new PhysicalFileProvider(postRepository.BasePath),
                     RequestPath = "/posts"
                 });
             }
 
-            var authorDir = Environment.GetEnvironmentVariable("AUTHORS");
-            logger.LogInformation($"Authors directory: {authorDir}");
-
-            if(!String.IsNullOrWhiteSpace(authorDir))
+            logger.LogInformation($"Authors directory: {authorRepository.BasePath}");
+            if(!String.IsNullOrWhiteSpace(authorRepository.BasePath))
             {
                 app.UseStaticFiles(new StaticFileOptions(){
-                    FileProvider = new PhysicalFileProvider(authorDir),
+                    FileProvider = new PhysicalFileProvider(authorRepository.BasePath),
                     RequestPath = "/authors"
                 });
             }
 
             app.UseStaticFiles(new StaticFileOptions(){
-                FileProvider = new PhysicalFileProvider(env.WebRootPath),
+                FileProvider = new PhysicalFileProvider(_env.WebRootPath),
                 RequestPath = ""
             });
 
