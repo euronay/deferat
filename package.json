@@ -1,8 +1,0 @@
-{
-    "name": "dotnet-run-default-project",
-    "private": true,
-    "version": "1.0.0", 
-    "scripts": {
-      "start": "POSTS=$INIT_CWD/Posts AUTHORS=$INIT_CWD/Authors dotnet run -p src"
-    }
-  }

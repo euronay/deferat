@@ -14,7 +14,6 @@ namespace Deferat.Repository
         private ILogger _logger;
         private IFileReader<T> _fileReader;
         private IQueryable<T> _dataSet;
-        private string _path;
         private Func<T,T> _processor;
 
         private IQueryable<T> Dataset
@@ -33,11 +32,13 @@ namespace Deferat.Repository
             }
         }
 
+        public string BasePath { get; private set;}
+
         public Repository(string path, Func<T, T> postProcessor, ILogger<Repository<T>> logger, IFileReader<T> fileReader)
         {
+            BasePath = path;
             _logger = logger;
             _fileReader = fileReader;
-            _path = path;
             _processor = postProcessor;
             _logger.LogInformation($"Loading data files from {path}...");
         }
@@ -68,7 +69,7 @@ namespace Deferat.Repository
 
         private IQueryable<T> LoadData()
         {
-            var directories = Directory.GetDirectories(_path);
+            var directories = Directory.GetDirectories(BasePath);
 
             var dataList = new List<T>();
             foreach(var directory in directories)
