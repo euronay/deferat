@@ -15,8 +15,8 @@ body {
     margin-bottom: 4.5rem;
     font-family: 'Montserrat', sans-serif !important;
     background-image: linear-gradient(120deg, #fdfbfb 0%, #ebedee 100%);
-
 }
+
 
 .bg-dark {
 
@@ -161,4 +161,19 @@ h2 a, h2 a:active, h2 a:visited, h2 a:hover {
 .share, .share:active, .share:visited {
     color: #343A40;
     padding: 0.5rem;
+}
+
+@media (prefers-color-scheme: dark) {
+    body {
+        background-image: linear-gradient(120deg, #343A40  0%, #161D25 100%);
+        color: #f9fcff;
+    }
+
+    .card, .card-footer, .jumbo-overlaid {
+        background-color: #343A40;
+    }
+
+    .share, .share:active, .share:visited {
+        color: #f9fcff;
+    }
 }
