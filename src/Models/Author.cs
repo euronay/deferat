@@ -8,6 +8,10 @@ namespace Deferat.Models
         public string Github { get; set; }
         public string LinkedIn { get; set; }
         public string Image { get; set; }
+        public string ImageUrl
+        {
+            get => $"authors/{Id}/{Image}";
+        }
         public bool Featured { get; set; }
         public string Html { get; set; }
     }

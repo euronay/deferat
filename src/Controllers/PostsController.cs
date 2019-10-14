@@ -14,9 +14,11 @@ namespace Deferat.Controllers
         // use a multiple of 3 for best appearance
         private const int PostsPerPage = 6;
         private IRepositoryContainer _repositories;
-        public PostsController(IRepositoryContainer repositories)
+        private Settings _settings;
+        public PostsController(IRepositoryContainer repositories, ISiteInfo siteInfo)
         {
             _repositories = repositories;
+            _settings = siteInfo.Settings;
         }
 
         // GET: Posts
@@ -46,6 +48,9 @@ namespace Deferat.Controllers
                 Tag = tag
             };
 
+            ViewData["Title"] = _settings.Title;
+            ViewData["Logo"] = $"/images/{_settings.Logo}";
+
             return View(viewModel);
         }
 
@@ -69,7 +74,7 @@ namespace Deferat.Controllers
             var author = _repositories.Authors.Get(post.Author.ToLower());
             
             postViewModel.AuthorName = author != null ? author.DisplayName : "Anonymous";
-            postViewModel.AuthorImage = author != null ? author.Image : "";
+            postViewModel.AuthorImage = author != null ? author.ImageUrl : "";
             postViewModel.AuthorTwitter = author != null ? author.Twitter : "";
 
             return postViewModel;         

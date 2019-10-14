@@ -13,14 +13,18 @@ namespace Deferat.Controllers
     {
         private ILogger _logger;
         private IRepositoryContainer _repositories;
+        private Settings _settings;
 
-        public HomeController(ILogger<HomeController> logger, IRepositoryContainer repositories)
+        public HomeController(ILogger<HomeController> logger, IRepositoryContainer repositories, ISiteInfo siteInfo)
         {
             _logger = logger;
             _repositories = repositories;
+            _settings = siteInfo.Settings;
         }
         public IActionResult Index()
         {
+            ViewData["Title"] = _settings.Title;
+            ViewData["Logo"] = $"/images/{_settings.Logo}";
             ViewData["Posts"] = _repositories.Posts.Get(orderBy: list => list.OrderByDescending(post => post.Date)).Take(4).Select(p => new PostViewModel(){Post = p});
 
             return View();
