@@ -29,12 +29,18 @@ namespace Deferat
         {
             var postsDir = Environment.GetEnvironmentVariable("POSTS") ?? Path.Combine(_env.ContentRootPath, "../Posts");
             var authorDir = Environment.GetEnvironmentVariable("AUTHORS") ?? Path.Combine(_env.ContentRootPath, "../Authors");
+            var settingsDir = Environment.GetEnvironmentVariable("SETTINGS") ?? Path.Combine(_env.ContentRootPath, "../Settings");
 
             services.AddMvc().SetCompatibilityVersion(CompatibilityVersion.Version_2_1);
 
             services.AddSingleton<IFormatterService, FormatterService>();
             services.AddSingleton<IFileReader<Post>, FileReader<Post>>();
             services.AddSingleton<IFileReader<Author>, FileReader<Author>>();
+            services.AddSingleton<IFileReader<Settings>, FileReader<Settings>>();
+            services.AddScoped<ISiteInfo>(ctx => new SiteInfo(
+                settingsDir,
+                ctx.GetService<ILogger<SiteInfo>>(), 
+                ctx.GetService<IFileReader<Settings>>()));
             services.AddScoped<IRepository<Post>>(ctx => new Repository<Post>(
                 postsDir, 
                 post => {
@@ -58,7 +64,7 @@ namespace Deferat
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
         public void Configure(IApplicationBuilder app, ILogger<Startup> logger, IFormatterService formatter, 
-            IRepository<Post> postRepository, IRepository<Author> authorRepository)
+           ISiteInfo siteInfo, IRepository<Post> postRepository, IRepository<Author> authorRepository)
         {
             if (_env.IsDevelopment())
             {
@@ -68,6 +74,15 @@ namespace Deferat
             {
                 app.UseExceptionHandler("/Home/Error");
                 app.UseHsts();
+            }
+
+            logger.LogInformation($"Settings directory: {siteInfo.BasePath}");
+            if(!String.IsNullOrWhiteSpace(siteInfo.BasePath))
+            {
+                app.UseStaticFiles(new StaticFileOptions(){
+                    FileProvider = new PhysicalFileProvider(Path.Combine(siteInfo.BasePath, "Images")),
+                    RequestPath = "/images"
+                });
             }
 
             logger.LogInformation($"Posts directory: {postRepository.BasePath}");
