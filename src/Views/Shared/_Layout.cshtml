@@ -1,3 +1,5 @@
+﻿@model ViewModelBase
+
 <!DOCTYPE html>
 <html>
 <head>
@@ -57,8 +59,8 @@
 
     <header>
         <!-- Fixed navbar -->
-        <nav class="navbar navbar-expand-md navbar-dark fixed-top bg-dark">
-            <a asp-area="" asp-controller="Posts" asp-action="Index" asp-route-tag="" asp-route-pagenumber="1" class="navbar-brand">James<span class="text-info">Naylor</span>.dev</a>
+        <nav class="navbar navbar-expand-md navbar-dark fixed-top bg-dark" style="background-image:url('~/images/@Model.Settings.Navbar')">
+            <a asp-area="" asp-controller="Posts" asp-action="Index" asp-route-tag="" asp-route-pagenumber="1" class="navbar-brand"><img src='~/images/@Model.Settings.Logo' class="logo"/></a>
             <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarCollapse" aria-controls="navbarCollapse" aria-expanded="false" aria-label="Toggle navigation">
                 <span class="navbar-toggler-icon"></span>
             </button>

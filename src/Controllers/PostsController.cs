@@ -42,14 +42,12 @@ namespace Deferat.Controllers
 
             var viewModel = new PostListViewModel()
             {
+                Settings = _settings,
                 Posts = posts.Select(p => CreatePostViewModel(p)),
                 PageCount = pageCount,
                 CurrentPage = pageNumber,
                 Tag = tag
             };
-
-            ViewData["Title"] = _settings.Title;
-            ViewData["Logo"] = $"/images/{_settings.Logo}";
 
             return View(viewModel);
         }

@@ -1,8 +1,8 @@
-using System;
+using Deferat.ViewModels;
 
 namespace Deferat.Models
 {
-    public class ErrorViewModel
+    public class ErrorViewModel : ViewModelBase
     {
         public string RequestId { get; set; }
 

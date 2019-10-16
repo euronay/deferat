@@ -1,9 +1,8 @@
-﻿using Deferat.Models;
-using System.Collections.Generic;
+﻿using System.Collections.Generic;
 
 namespace Deferat.ViewModels
 {
-    public class PostListViewModel
+    public class PostListViewModel : ViewModelBase
     {
         public int PageCount { get; set; }
 

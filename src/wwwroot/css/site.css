@@ -48,7 +48,6 @@ h2 a, h2 a:active, h2 a:visited, h2 a:hover {
 }
 
 .jumbotron-main {
-    background: url('../images/cristian-palmer-716730-unsplash.jpg'); 
     background-size: 100% auto !important;  
     background-position: center !important; 
     background-repeat: no-repeat;
@@ -161,6 +160,10 @@ h2 a, h2 a:active, h2 a:visited, h2 a:hover {
 .share, .share:active, .share:visited {
     color: #343A40;
     padding: 0.5rem;
+}
+
+.navbar .logo {
+    height: 2rem;
 }
 
 @media (prefers-color-scheme: dark) {

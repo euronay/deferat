@@ -1,4 +1,4 @@
-﻿@model IEnumerable<Author>
+﻿@model AuthorListViewModel
 @{
     ViewData["Title"] = "About";
 }
@@ -16,7 +16,7 @@
     </div>
 </div>
     
-    @foreach (var author in Model)
+    @foreach (var author in Model.Authors)
     {
         <div class="row mt-5">
             <div class="col-sm-2 offset-sm-1">

@@ -1,10 +1,8 @@
-﻿using System;
-using System.Collections.Generic;
-using Deferat.Models;
+﻿using Deferat.Models;
 
 namespace Deferat.ViewModels
 {
-    public class PostViewModel
+    public class PostViewModel :ViewModelBase
     {
         public Post Post { get; set; }
         public string AuthorName { get; set; }
