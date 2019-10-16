@@ -32,9 +32,9 @@ namespace Deferat.Controllers
 
         public IActionResult About()
         {
-            var authors = _repositories.Authors.Get();
+            var model = new AuthorListViewModel() { Settings = _settings, Authors = _repositories.Authors.Get() };
 
-            return View(authors);
+            return View(model);
         }
 
         public IActionResult Contact()
@@ -46,13 +46,13 @@ namespace Deferat.Controllers
 
         public IActionResult Privacy()
         {
-            return View();
+            return View(new ViewModelBase() {Settings = _settings});
         }
 
         [ResponseCache(Duration = 0, Location = ResponseCacheLocation.None, NoStore = true)]
         public IActionResult Error()
         {
-            return View(new ErrorViewModel { RequestId = Activity.Current?.Id ?? HttpContext.TraceIdentifier });
+            return View(new ErrorViewModel { Settings = _settings, RequestId = Activity.Current?.Id ?? HttpContext.TraceIdentifier });
         }
     }
 }
