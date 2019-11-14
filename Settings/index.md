@@ -1,8 +1,9 @@
 ---
 title: Deferat
-logo: logo-transparent.png
-navbar-bg: navbar-bg.png
-hero: hero.jpg
+hero: aryan-dhiman-iGLLtLINSkw-unsplash.jpg
+heroCredit: Photo by Aryan Dhiman on Unsplash
+privacy: Use this page to detail your site's privacy policy.
 ---
 
-This is the text for the home screen
+# Welcome to Deferat
+#### Blog engine for markdown posts 😁

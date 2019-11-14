@@ -1,36 +1,47 @@
 ﻿@model AuthorListViewModel
 @{
-    ViewData["Title"] = "About";
+    ViewData["Title"] = $"About {Model.Settings.Title}";
 }
 
-<div class="jumbotron jumbotron-main text-white" >
+<div class="jumbotron jumbotron-main text-white" style='@($"background:linear-gradient(to bottom, #343A40FF, #FB626033),url(\"{Context.Request.Scheme}://{Context.Request.Host}/images/{Model.Settings.Hero}\")")' >
 
 </div> 
 
 
-<div class="container jumbo-overlaid rounded shadow">
+<div class="container jumbo-overlaid rounded shadow card post">
 
-<div class="row">
-    <div class="col-sm-12">
-        <h1 class="display-4">@ViewData["Title"]</h1>
-    </div>
-</div>
     
     @foreach (var author in Model.Authors)
     {
-        <div class="row mt-5">
-            <div class="col-sm-2 offset-sm-1">
+        <div class="row mb-5">
+            <div class="col-sm-2">
+                
                 <img class="card-img rounded-circle shadow" src="../@author.ImageUrl" />
-                <div class="text-center">
-                    <h4>@author.DisplayName</h4>
-                    <div>
-                        <a href="https://twitter.com/@author.Twitter/"><i class="fab fa-twitter"></i> &commat;@author.Twitter</a> <br />
-                        <a href="https://github.com/@author.Github/"><i class="fab fa-github"></i> @author.Github</a> <br />
-                        <a href="https://www.linkedin.com/in/@author.LinkedIn/"><i class="fab fa-linkedin"></i> @author.DisplayName</a> <br />
-                    </div>
+
+                <div class="text-left ml-4 mt-2">
+   
+                        @if (author.Twitter != null)
+                        {
+                            <a href="https://twitter.com/@author.Twitter/"><i class="fab fa-2x fa-fw fa-twitter"></i> @author.Twitter</a> <br />
+                        }
+                        @if (author.DevTo != null)
+                        {
+                            <a href="https://dev.to/@author.DevTo/"><i class="fab fa-2x fa-fw fa-dev"></i> @author.DevTo</a> <br />
+                        }
+                        @if (author.Github != null)
+                        {
+                            <a href="https://github.com/@author.Github/"><i class="fab fa-2x fa-fw fa-github"></i> @author.Github</a> <br />
+                        }
+                        @if (author.LinkedIn != null)
+                        {
+                        <a href="https://www.linkedin.com/in/@author.LinkedIn/"><i class="fab fa-2x fa-fw fa-linkedin"></i> @author.DisplayName</a> <br />
+                        }
+                    
                 </div>
             </div>
-            <div class="col-sm-8">
+
+            <div class="col-sm-10">
+                <h1>About @author.DisplayName</h1>
                 @Html.Raw(author.Html)
             </div>
         </div>

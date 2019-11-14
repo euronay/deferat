@@ -25,8 +25,22 @@ body {
     background-repeat: repeat;
 }
 
+.post {
+    min-height: 40rem;
+}
+
 h1, h2, .navbar-brand {
     font-family: 'Asap', serif !important;
+}
+
+a, a:active, a:visited {
+    color: #FB6260;
+    text-decoration: none;
+}
+
+a:hover {
+    color: #BC5090;
+    text-decoration: none;
 }
 
 h1 a, h1 a:active, h1 a:visited, h1 a:hover,
@@ -48,12 +62,12 @@ h2 a, h2 a:active, h2 a:visited, h2 a:hover {
 }
 
 .jumbotron-main {
-    background-size: 100% auto !important;  
+    background-size: cover !important;  
     background-position: center !important; 
     background-repeat: no-repeat;
     padding-top: 5rem;
     padding-bottom: 5rem;
-    height: 20rem;
+    height: 24rem;
     border-radius: 0 !important;
 }
 
@@ -69,6 +83,16 @@ h2 a, h2 a:active, h2 a:visited, h2 a:hover {
     width: 100%;
     /* Set the fixed height of the footer here */
     height: 3.5rem;
+}
+
+.fancy-card:hover {
+    transform: translate3D(0,-1px,0) scale(1.03);
+    transition: all .4s ease;
+}
+
+.card-deck .card {
+    min-width: 20rem;
+    max-width: 24rem;
 }
 
 .card{
@@ -103,30 +127,59 @@ h2 a, h2 a:active, h2 a:visited, h2 a:hover {
 .card-footer {
     background-color: #f9fcff;
     border-top: none;
+    display: flex;
+    flex-direction: row;
+    flex-wrap: wrap;
+    align-items: center;
 }
 
 .jumbo-overlaid {
-    margin-top: -10rem;
-    background-color: #f9fcff;
+    margin-top: -14rem;
     padding-top: 1.5rem;
 }
 
+.card-title {
+    font-size: 2.5rem;
+    font-family: 'Asap', serif !important;
+}
+
+.card-body {
+    padding: 1rem;
+}
+
+.tags {
+    height: 2rem;
+}
+
+.tag-display {
+    background-color: #f9fcff;
+    border: 1px solid rgba(0,0,0,.125);
+    border-radius: .25rem;
+    padding: .25rem;
+}
+
+.badge {
+    background: linear-gradient(to right,#FB6260,#BC5090);
+    text-transform: uppercase;
+}
+
+.badge-pill {
+    border-radius: 0.2rem;
+}
+
+a.badge-primary:visited {
+    color: #ffffff;
+}
+
 .avatar {
-    width: 5rem;
-    height: 5rem;
+    object-fit: cover;
+    width: 3rem;
+    height: 3rem;
     border-radius: 50% !important;
 }
 
-.card .avatar {
-    position: absolute;
-    top: 6.5rem;
-    right: 1rem;
-}
-
-.card .byline {
-    font-size: 0.9rem;
-    margin-top: -0.5rem;
-    padding-bottom: 0.5rem;
+.card-footer .byline {
+    margin-left: auto;
 }
 
 .credit {
@@ -172,7 +225,7 @@ h2 a, h2 a:active, h2 a:visited, h2 a:hover {
         color: #f9fcff;
     }
 
-    .card, .card-footer, .jumbo-overlaid {
+    .card, .card-footer, .tag-display {
         background-color: #343A40;
     }
 

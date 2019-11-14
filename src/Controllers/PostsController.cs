@@ -66,7 +66,8 @@ namespace Deferat.Controllers
         {
             PostViewModel postViewModel = new PostViewModel()
             {
-                Post = post
+                Post = post,
+                Settings = _settings
             };
 
             var author = _repositories.Authors.Get(post.Author.ToLower());

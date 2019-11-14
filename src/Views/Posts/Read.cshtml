@@ -1,12 +1,12 @@
 @model PostViewModel
 
 @{
-    ViewData["Title"] = @Model.Post.Title;
+    ViewData["Title"] = $"{Model.Post.Title} - {Model.Settings.Title}";
     ViewData["Description"] = @Model.Post.Description;
     ViewData["Image"] = $"https://{Context.Request.Host}{Model.Post.Image}";
 }
 
-<div class="jumbotron jumbotron-main text-white" style="background: url('@Model.Post.Image'); " >
+<div class="jumbotron jumbotron-main text-white" style="background:linear-gradient(to bottom, #343A40FF, #00000000, #00000000),url('@Model.Post.Image'); " >
 
     @if (!String.IsNullOrWhiteSpace(Model.Post.ImageCredit)){
         <div class="credit">
@@ -16,7 +16,7 @@
     }
 </div> 
 
-<div class="container jumbo-overlaid rounded shadow">
+<div class="container jumbo-overlaid rounded shadow card post">
 
     @await Html.PartialAsync("_Post")
 

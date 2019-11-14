@@ -1,26 +1,29 @@
 @model PostViewModel
 
-<div class="card shadow">
+<div class="card mt-5 shadow fancy-card">
     <a asp-controller="Posts" asp-action="Read" asp-route-id="@Model.Post.Id">
     <div class="card-img-wrapper shadow">
         <img class="card-img-top img-fluid" src="@Model.Post.Image" />
     </div>
     </a>
     <div class="card-body mt-1 convert-emoji">
+        <div class="tags">
+            @foreach (var tag in Model.Post.Categories)
+            {
+                <a asp-controller="Posts" asp-action="Index" asp-route-tag="@tag" 
+                    asp-route-pagenumber="1" class="badge badge-pill badge-primary">
+                    @tag
+                </a>
+            }
+        </div>
         <h4 class="card-title"><a asp-controller="Posts" asp-action="Read" asp-route-id="@Model.Post.Id">@Model.Post.Title</a></h4>                    
-        <div class="byline"><span class="text-muted">@Model.Post.Date.ToShortDateString()</span> &middot; <span class="text-muted">@Model.AuthorName</span></div>
         <div>
             @Html.Raw(Model.Post.ShortContent)
         </div>
     </div>
-    <div class="card-footer text-right">
-        @foreach (var tag in Model.Post.Categories)
-        {
-            <a asp-controller="Posts" asp-action="Index" asp-route-tag="@tag" 
-                asp-route-pagenumber="1" class="badge badge-pill badge-primary">
-                @tag
-            </a>
-        }
+    <div class="card-footer">
+        <img class="avatar shadow" src="~/@Model.AuthorImage" />
+        <div class="byline"><span class="text-muted">@Model.Post.Date.ToShortDateString()</span> &middot; <span class="text-muted">@Model.AuthorName</span></div>
     </div>
-    <img class="avatar shadow" src="~/@Model.AuthorImage" />
+    
 </div>
