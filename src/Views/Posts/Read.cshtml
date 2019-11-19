@@ -14,11 +14,27 @@
             <div class="creditText">@Html.Raw(@Model.Post.ImageCredit)</div>
         </div>
     }
+
+    <div class="container">
+            <div class="row">
+                <div class="col-sm-12">
+                    <p class="lead convert-emoji">
+                        <h1><a asp-controller="Posts" asp-action="Read" asp-route-id="@Model.Post.Id">@Model.Post.Title</a></h1>
+                    </p>
+                    </div>
+                </div>
+
+
+            </div>
+        </div>
 </div> 
+<div class="bg-darker py-4">
+    <div class="container">
+        @await Html.PartialAsync("_PostInfo")
+    </div>
+</div>
 
-<div class="container jumbo-overlaid rounded shadow card post">
-
+<div class="container post">
     @await Html.PartialAsync("_Post")
-
 </div>
 

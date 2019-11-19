@@ -4,7 +4,9 @@
     ViewData["Title"] = Model.Settings.Title;
 }
 
-<div class="jumbotron jumbotron-main text-white" style='@($"background:linear-gradient(to bottom, #343A40FF, #FB626033),url(\"{Context.Request.Scheme}://{Context.Request.Host}/images/{Model.Settings.Hero}\")")' >
+<div class="index-bg" style='@($"background-image: url(\"{Context.Request.Scheme}://{Context.Request.Host}/images/{Model.Settings.Hero}\")")' >
+
+<div class="jumbotron jumbotron-main text-white">
         
         @if (!String.IsNullOrWhiteSpace(Model.Settings.HeroCredit)){
             <div class="credit">
@@ -25,7 +27,7 @@
             </div>
         </div>
 
-    <div class="container jumbo-overlaid">
+    <div class="container">
 
         @if (!String.IsNullOrWhiteSpace(Model.Tag))
         {
@@ -62,4 +64,6 @@
                 }
             </div>
         </div>
+</div>
+
 </div>

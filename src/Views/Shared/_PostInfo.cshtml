@@ -1,0 +1,30 @@
+@model PostViewModel
+
+<div class="row ">
+    <div class="col-sm-6 my-auto text-left">
+        <img class="avatar shadow" src="~/@Model.AuthorImage" /> 
+        <span class="text-muted">By </span><span class="font-weight-bold">@Model.AuthorName</span>
+    </div>
+    <div class="col-sm-6 my-auto text-right"> 
+        <div><span class="text-muted">Published on </span> <span class="font-weight-bold">@(Model.Post.Date.ToString("d MMMM yy"))</span></div>
+        <div>
+            <span class="text-muted">Share on </span>
+        <a class="share" href='@($"https://www.facebook.com/sharer.php?u={Context.Request.Scheme}%3A%2F%2F{Context.Request.Host}{Context.Request.Path}{Context.Request.QueryString}")'><i class="fab fa-facebook-f"></i></a> 
+        <a class="share" href='@($"https://twitter.com/intent/tweet?text={Model.Post.Title}&amp;url={Context.Request.Scheme}%3A%2F%2F{Context.Request.Host}{Context.Request.Path}{Context.Request.QueryString}&amp;via={Model.AuthorTwitter}")'><i class="fab fa-twitter"></i></a>
+        <a class="share" href='@($"https://www.linkedin.com/shareArticle?mini=true&amp;url={Context.Request.Scheme}%3A%2F%2F{Context.Request.Host}{Context.Request.Path}{Context.Request.QueryString}&amp;summary={Model.Post.Description}&amp;source={Context.Request.Scheme}%3A%2F%2F{Context.Request.Host}{Context.Request.QueryString}")'><i class="fab fa-linkedin-in"></i></a>
+        <a class="share" href='@($"https://getpocket.com/edit?url={Context.Request.Scheme}%3A%2F%2F{Context.Request.Host}{Context.Request.Path}{Context.Request.QueryString}")'><i class="fab fa-get-pocket"></i></a> 
+        </div>
+    </div>
+</div>
+<div class="row mt-4">
+    <div class="col-sm-6">
+        @foreach (var tag in Model.Post.Categories)
+            {
+                <a asp-controller="Posts" asp-action="Index" asp-route-tag="@tag" 
+                    asp-route-pagenumber="1" class="badge badge-pill badge-primary">
+                    @tag
+                </a>
+            }
+    </div>
+</div>
+</div>

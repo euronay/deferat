@@ -1,34 +1,9 @@
 @model PostViewModel
 
-
 <div class="row convert-emoji mt-2">
-    <div class="col-sm-2">
-        <div class="text-right mb-4">  
-            <img class="avatar shadow" src="~/@Model.AuthorImage" /><br />
-            <span class="font-weight-bold">@Model.AuthorName</span><br />
-            @Model.Post.Date.ToShortDateString()<br />
-            @foreach (var tag in Model.Post.Categories)
-            {
-                <a asp-controller="Posts" asp-action="Index" asp-route-tag="@tag" 
-                    asp-route-pagenumber="1" class="badge badge-pill badge-primary">
-                    @tag
-                </a>
-            }
-        </div>
-    </div>
-    <div class="col-sm-10 article">
-        <h1><a asp-controller="Posts" asp-action="Read" asp-route-id="@Model.Post.Id" class="display-4">@Model.Post.Title</a></h1>
+    <div class="col-sm-12 article">
   
         @Html.Raw(Model.Post.Html)
         
-    </div>
-</div>
-<div class="row convert-emoji mt-2 pb-2">
-    <div class="col-sm-12 card-footer text-right lead">
-        Share on 
-        <a class="share" href='@($"https://www.facebook.com/sharer.php?u={Context.Request.Scheme}%3A%2F%2F{Context.Request.Host}{Context.Request.Path}{Context.Request.QueryString}")'><i class="fab fa-facebook-f"></i></a> 
-        <a class="share" href='@($"https://twitter.com/intent/tweet?text={Model.Post.Title}&amp;url={Context.Request.Scheme}%3A%2F%2F{Context.Request.Host}{Context.Request.Path}{Context.Request.QueryString}&amp;via={Model.AuthorTwitter}")'><i class="fab fa-twitter"></i></a>
-        <a class="share" href='@($"https://www.linkedin.com/shareArticle?mini=true&amp;url={Context.Request.Scheme}%3A%2F%2F{Context.Request.Host}{Context.Request.Path}{Context.Request.QueryString}&amp;summary={Model.Post.Description}&amp;source={Context.Request.Scheme}%3A%2F%2F{Context.Request.Host}{Context.Request.QueryString}")'><i class="fab fa-linkedin-in"></i></a>
-        <a class="share" href='@($"https://getpocket.com/edit?url={Context.Request.Scheme}%3A%2F%2F{Context.Request.Host}{Context.Request.Path}{Context.Request.QueryString}")'><i class="fab fa-get-pocket"></i></a> 
     </div>
 </div>

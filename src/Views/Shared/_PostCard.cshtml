@@ -21,9 +21,18 @@
             @Html.Raw(Model.Post.ShortContent)
         </div>
     </div>
-    <div class="card-footer">
-        <img class="avatar shadow" src="~/@Model.AuthorImage" />
-        <div class="byline"><span class="text-muted">@Model.Post.Date.ToShortDateString()</span> &middot; <span class="text-muted">@Model.AuthorName</span></div>
+        <div class="card-footer bg-darker">
+            <div class="container-fluid mx-0 px-0">
+                <div class="row">
+                    <div class="col-sm-7 my-auto text-left">
+                        <img class="avatar shadow" src="~/@Model.AuthorImage" /> 
+                        <span class="text-muted">@Model.AuthorName</span>
+                    </div>
+                    <div class="col-sm-5 my-auto text-right"> 
+                        <span class="text-muted">@(Model.Post.Date.ToString("d MMMM yy"))</span>
+                    </div>
+                </div>
+            </div>
     </div>
     
 </div>
