@@ -3,7 +3,7 @@
     ViewData["Title"] = $"About {Model.Settings.Title}";
 }
 
-<div class="jumbotron jumbotron-main text-white" style='@($"background:linear-gradient(to bottom, #343A40FF, #FB626033),url(\"{Context.Request.Scheme}://{Context.Request.Host}/images/{Model.Settings.Hero}\")")' >
+<div class="jumbotron jumbotron-main text-white" style='@($"background:linear-gradient(to bottom, #1A202CFF, #1A202C77, #00000000),url(\"{Context.Request.Scheme}://{Context.Request.Host}/images/{Model.Settings.Hero}\")")' >
     @if (!String.IsNullOrWhiteSpace(Model.Settings.HeroCredit)){
             <div class="credit">
                 <i class="fa fa fa-image shadow"></i>

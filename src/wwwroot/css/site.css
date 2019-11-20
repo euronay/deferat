@@ -17,6 +17,9 @@ body {
     background: linear-gradient(120deg, #EDF2F7, #F7FAFC);
 }
 
+.bg-dark {
+    background-color: #1A202C !important;
+}
 
 .bg-darker {
     background-color: #E2E8F0;
@@ -63,10 +66,10 @@ h2 a, h2 a:active, h2 a:visited, h2 a:hover {
 }
 
 .index-bg {
-  -webkit-background-size: cover;
-  -moz-background-size: cover;
-  background-size: cover;
-  -o-background-size: cover;
+  -webkit-background-size: cover !important;
+  -moz-background-size: cover !important;
+  background-size: cover !important;
+  -o-background-size: cover !important;
 }
 
 .jumbotron-main {
@@ -81,9 +84,33 @@ h2 a, h2 a:active, h2 a:visited, h2 a:hover {
     background-color: #00000000;
 }
 
+.card-deck .card {
+    min-width: 24rem;
+    max-width: 24rem;
+}
+
 @media (max-width: 460px) {
     .jumbotron-main {
         background-position: top left !important;
+    }
+
+    .card-deck .card {
+        min-width: none;
+    }
+}
+
+@media (max-width: 576px) {
+    .lead h1 {
+        font-size: 1.5rem;
+    }
+}
+
+@media (min-width: 1200px) {
+    .container{
+        max-width: 960px;
+    } 
+    .container-cards{
+        max-width: 1140px
     }
 }
 
@@ -100,10 +127,6 @@ h2 a, h2 a:active, h2 a:visited, h2 a:hover {
     transition: all .2s ease;
 }
 
-.card-deck .card {
-    min-width: 20rem;
-    max-width: 24rem;
-}
 
 .card{
     overflow: hidden;
@@ -143,16 +166,19 @@ h2 a, h2 a:active, h2 a:visited, h2 a:hover {
 }
 
 .card-title {
-    font-size: 2.5rem;
+    font-size: 2rem;
     font-family: 'Asap', serif !important;
 }
 
 .card-body {
     padding: 1rem;
+    max-height: 25rem;
+    overflow: hidden;
 }
 
 .tags {
     height: 2rem;
+    margin-bottom: 1rem;
 }
 
 .tag-display {
@@ -225,7 +251,7 @@ a.badge-primary:visited {
 }
 
 .share, .share:active, .share:visited {
-    color: #343A40;
+    color: #1A202C;
     padding-left: 0.2rem;
 }
 

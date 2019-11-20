@@ -6,7 +6,7 @@
     ViewData["Image"] = $"https://{Context.Request.Host}{Model.Post.Image}";
 }
 
-<div class="jumbotron jumbotron-main text-white" style="background:linear-gradient(to bottom, #343A40FF, #00000000, #00000000),url('@Model.Post.Image'); " >
+<div class="jumbotron jumbotron-main text-white" style="background:linear-gradient(to bottom, #1A202CFF, #1A202C77, #00000000),url('@Model.Post.Image'); " >
 
     @if (!String.IsNullOrWhiteSpace(Model.Post.ImageCredit)){
         <div class="credit">
@@ -17,10 +17,8 @@
 
     <div class="container">
             <div class="row">
-                <div class="col-sm-12">
-                    <p class="lead convert-emoji">
+                <div class="col-sm-12 lead convert-emoji">
                         <h1><a asp-controller="Posts" asp-action="Read" asp-route-id="@Model.Post.Id">@Model.Post.Title</a></h1>
-                    </p>
                     </div>
                 </div>
 

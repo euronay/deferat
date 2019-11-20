@@ -4,9 +4,10 @@
     ViewData["Title"] = Model.Settings.Title;
 }
 
-<div class="index-bg" style='@($"background-image: url(\"{Context.Request.Scheme}://{Context.Request.Host}/images/{Model.Settings.Hero}\")")' >
 
-<div class="jumbotron jumbotron-main text-white">
+<div class="index-bg" style='@($"background-image:url(\"{Context.Request.Scheme}://{Context.Request.Host}/images/{Model.Settings.Hero}\")")' >
+
+<div class="jumbotron jumbotron-main text-white" style="background:linear-gradient(to bottom, #1A202CFF, #1A202C77, #00000000);">
         
         @if (!String.IsNullOrWhiteSpace(Model.Settings.HeroCredit)){
             <div class="credit">
@@ -42,14 +43,16 @@
                 Nothing to see here!
             </div>
         }
-
+    </div>
+    <div class="container container-cards">
         <div class="card-deck justify-content-center">
             @foreach (var post in Model.Posts)
             {
                 @await Html.PartialAsync("_PostCard", post)
             }
         </div>
-
+    </div>
+    <div class="container">
         <div class="row mt-5">
             <div class="col-sm-6">
                 @if (Model.CurrentPage<Model.PageCount)
