@@ -6,7 +6,7 @@
         <span class="text-muted">By </span><span class="font-weight-bold">@Model.AuthorName</span>
     </div>
     <div class="col-sm-6 my-auto text-right"> 
-        <div><span class="text-muted">Published on </span> <span class="font-weight-bold">@(Model.Post.Date.ToString("d MMMM yy"))</span></div>
+        <div><span class="text-muted">Published on </span> <span class="font-weight-bold">@(Model.Post.Date.ToString("d MMM yy"))</span></div>
         <div>
             <span class="text-muted">Share on </span>
         <a class="share" href='@($"https://www.facebook.com/sharer.php?u={Context.Request.Scheme}%3A%2F%2F{Context.Request.Host}{Context.Request.Path}{Context.Request.QueryString}")'><i class="fab fa-facebook-f"></i></a> 

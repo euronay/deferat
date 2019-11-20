@@ -182,9 +182,8 @@ h2 a, h2 a:active, h2 a:visited, h2 a:hover {
 }
 
 .tag-display {
-    border: 1px solid rgba(0,0,0,.125);
-    border-radius: .25rem;
     padding: .25rem;
+    color: #ffffff
 }
 
 .badge {
