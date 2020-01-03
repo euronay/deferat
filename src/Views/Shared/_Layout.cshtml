@@ -59,7 +59,7 @@
 
     <header>
         <!-- Fixed navbar -->
-        <nav class="navbar navbar-expand-md navbar-dark fixed-top bg-dark" style='@($"background-image:url(\"{Context.Request.Scheme}://{Context.Request.Host}/{Model.Settings.Navbar}\")")'>
+        <nav class="navbar navbar-expand-md navbar-dark fixed-top bg-dark shadow" style='@($"background-image:url(\"{Context.Request.Scheme}://{Context.Request.Host}/{Model.Settings.Navbar}\")")'>
             <a asp-area="" asp-controller="Posts" asp-action="Index" asp-route-tag="" asp-route-pagenumber="1" class="navbar-brand">
                 @Model.Settings.Title
             </a>

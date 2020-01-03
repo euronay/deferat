@@ -13,3 +13,18 @@ $(document).ready(function () {
     });
 });
 
+
+var prevScrollPos = $(window).scrollTop();
+// scroll functions
+$(window).scroll(function(e) {
+
+    var currentScrollPos = $(window).scrollTop();
+
+    if (currentScrollPos >= 150 && currentScrollPos > prevScrollPos) {
+        $('.navbar').addClass("navbar-hide");
+    } else {
+        $('.navbar').removeClass("navbar-hide");
+    }
+
+    prevScrollPos = currentScrollPos;
+});

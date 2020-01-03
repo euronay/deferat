@@ -53,7 +53,7 @@ namespace Deferat.Services
                     src = $"/posts/{folder}/{src}";
                     imageNode.SetAttributeValue("src", src);
 
-                    imageNode.Attributes.Add("class", "img-fluid shadow-sm rounded");
+                    imageNode.Attributes.Add("class", "img-fluid d-block mx-auto shadow-sm rounded");
                 }
             }
 

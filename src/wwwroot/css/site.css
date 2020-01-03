@@ -1,4 +1,4 @@
-﻿@import url(http://fonts.googleapis.com/css?family=Montserrat:400,300,700);
+@import url(http://fonts.googleapis.com/css?family=Montserrat:400,300,700);
 @import url(http://fonts.googleapis.com/css?family=Asap:400,300,700);
 
 
@@ -256,6 +256,14 @@ a.badge-primary:visited {
 
 .navbar .logo {
     height: 2rem;
+}
+
+.navbar {
+    transition: top 0.2s ease;
+}
+
+.navbar-hide {
+    top: -42px;
 }
 
 @media (prefers-color-scheme: dark) {

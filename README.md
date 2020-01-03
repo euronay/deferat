@@ -10,6 +10,6 @@ Simply run:
 dotnet run -p src
 ```
 
-You can siply put your posts into the existing `Posts` directory and your author details in `Authors`. Or you can set the `POSTS` or `AUTHORS` envirnoment variables to use you own location.
+Put your posts into the `Posts` directory, author details in `Authors` and then update the `index.md` page in `Settings`. Alternatively you can set the `POSTS`, `AUTHORS` and `SETTINGS` environment variables before running the app to use you own locations.
 
 To read how to format posts, read the [example post](/Posts/example-post/index.md)
