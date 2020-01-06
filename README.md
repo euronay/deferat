@@ -2,6 +2,8 @@
 
 A simple blog engine for displaying markdown formatted posts written in .NET Core. Used on my personal site, [jamesnaylor.dev](https://jamesnaylor.dev)
 
+![](https://github.com/euronay/deferat/workflows/CI/badge.svg)
+
 ## Usage
 
 Simply run:
