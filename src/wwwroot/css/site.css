@@ -1,4 +1,4 @@
-@import url(http://fonts.googleapis.com/css?family=Montserrat:400,300,700);
+﻿@import url(http://fonts.googleapis.com/css?family=Montserrat:400,300,700);
 @import url(http://fonts.googleapis.com/css?family=Asap:400,300,700);
 
 
@@ -266,6 +266,15 @@ a.badge-primary:visited {
     top: -42px;
 }
 
+pre {
+    display: block;
+    overflow-x: auto;
+    padding: 0.5em;
+    background: #1A202C;
+    color: #f8f8f2;
+    border-radius: .3rem;
+}
+
 @media (prefers-color-scheme: dark) {
     body {
         background-image: linear-gradient(120deg, #1A202C, #2D3748);
@@ -283,4 +292,5 @@ a.badge-primary:visited {
     .text-muted, .share, .share:active, .share:visited {
         color: #f9fcff !important;
     }
+
 }
