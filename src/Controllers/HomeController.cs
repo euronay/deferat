@@ -26,32 +26,42 @@ namespace Deferat.Controllers
             ViewData["Title"] = _settings.Title;
             ViewData["Posts"] = _repositories.Posts.Get(orderBy: list => list.OrderByDescending(post => post.Date)).Take(4).Select(p => new PostViewModel(){Post = p});
 
-            return View();
+            return View(new ViewModelBase() { Settings = _settings });
         }
 
         public IActionResult About()
         {
-            var model = new AuthorListViewModel() { Settings = _settings, Authors = _repositories.Authors.Get() };
-
-            return View(model);
+            return View(new AuthorListViewModel()
+            {
+                Settings = _settings,
+                Authors = _repositories.Authors.Get()
+            });
         }
 
         public IActionResult Contact()
         {
             ViewData["Message"] = "Your contact page.";
 
-            return View();
+            return View(new ViewModelBase()
+            {
+                Settings = _settings
+            });
         }
 
         public IActionResult Privacy()
         {
-            return View(new ViewModelBase() {Settings = _settings});
+            return View(new ViewModelBase() {
+                Settings = _settings
+            });
         }
 
         [ResponseCache(Duration = 0, Location = ResponseCacheLocation.None, NoStore = true)]
         public IActionResult Error()
         {
-            return View(new ErrorViewModel { Settings = _settings, RequestId = Activity.Current?.Id ?? HttpContext.TraceIdentifier });
+            return View(new ErrorViewModel {
+                Settings = _settings,
+                RequestId = Activity.Current?.Id ?? HttpContext.TraceIdentifier
+            });
         }
     }
 }

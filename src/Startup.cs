@@ -3,23 +3,21 @@ using Deferat.Repository;
 using Deferat.Services;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
-using Microsoft.AspNetCore.Http;
-using Microsoft.AspNetCore.Mvc;
-using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.FileProviders;
+using Microsoft.Extensions.Hosting;
+using Microsoft.Extensions.Logging;
 using System;
 using System.IO;
-using Microsoft.Extensions.Logging;
 using System.Linq;
 
 namespace Deferat
 {
     public class Startup
     {
-        private readonly IHostingEnvironment _env;
+        private readonly IWebHostEnvironment _env;
 
-        public Startup(IHostingEnvironment env)
+        public Startup(IWebHostEnvironment env)
         {
             _env = env;
         }
@@ -31,7 +29,7 @@ namespace Deferat
             var authorDir = Environment.GetEnvironmentVariable("AUTHORS") ?? Path.Combine(_env.ContentRootPath, "../Authors");
             var settingsDir = Environment.GetEnvironmentVariable("SETTINGS") ?? Path.Combine(_env.ContentRootPath, "../Settings");
 
-            services.AddMvc().SetCompatibilityVersion(CompatibilityVersion.Version_2_1);
+            services.AddMvc();
 
             services.AddSingleton<IFormatterService, FormatterService>();
             services.AddSingleton<IFileReader<Post>, FileReader<Post>>();
@@ -110,23 +108,14 @@ namespace Deferat
 
             app.UseCookiePolicy();
 
-            app.UseMvc(routes =>
+            app.UseRouting();
+
+            app.UseEndpoints(endpoints =>
             {
-                routes.MapRoute(
-                    name: "tags",
-                    template: "Posts/Tag/{tag}/Page/{pageNumber?}/",
-                    defaults: new { Controller = "Posts", Action = "Index", tag = "", pageNumber = 1 });
-                routes.MapRoute(
-                    name: "posts",
-                    template: "Posts/Page/{pageNumber?}",
-                    defaults: new { Controller = "Posts", Action = "Index", pageNumber = 1 });
-                routes.MapRoute(
-                    name: "post",
-                    template: "Posts/{id}",
-                    defaults: new {Controller = "Posts", Action="Post" });
-                routes.MapRoute(
-                    name: "default",
-                    template: "{controller=Posts}/{action=Index}");
+                endpoints.MapControllerRoute(
+                    "default",
+                    pattern: "{controller=Posts}/{action=Index}/{id?}"
+                );
             });
         }
     }
