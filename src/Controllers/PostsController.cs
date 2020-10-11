@@ -22,7 +22,8 @@ namespace Deferat.Controllers
         }
 
         // GET: Posts
-        public ActionResult Index(string tag, int pageNumber = 1, bool showDraft = false)
+        [HttpGet]
+        public ActionResult Index(string tag, int pageNumber = 1, bool showDraft = false, string filter = null)
         {
             var pageCount = 0;
 
@@ -31,14 +32,18 @@ namespace Deferat.Controllers
             {
                 posts = posts.Where(p => p.Categories.Contains(tag));
             }
-            
+
+            if (!String.IsNullOrEmpty(filter))
+            {
+                posts = posts.Where(p => p.Title.ToLower().Contains(filter.ToLower()));
+            }
+
             pageCount = (posts.Count() - 1) / PostsPerPage + 1;
 
             if (pageNumber > pageCount)
                 throw new ArgumentException($"Requested page {pageNumber} but there are only {pageCount} pages");
 
             posts = posts.Skip((pageNumber - 1) * PostsPerPage).Take(PostsPerPage);
-
 
             var viewModel = new PostListViewModel()
             {
