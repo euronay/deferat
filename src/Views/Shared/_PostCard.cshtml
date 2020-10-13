@@ -11,11 +11,12 @@
             @foreach (var tag in Model.Post.Categories)
             {
                 <a asp-controller="Posts" asp-action="Index" asp-route-tag="@tag" 
-                    asp-route-pagenumber="1" class="badge badge-pill badge-primary">
+                   asp-route-pagenumber="1" class="badge badge-pill badge-primary">
                     @tag
                 </a>
             }
         </div>
+        <div>@Model.Post.TimeToRead minute read</div>
         <h4 class="card-title"><a asp-controller="Posts" asp-action="Read" asp-route-id="@Model.Post.Id">@Model.Post.Title</a></h4>                    
         <div>
             @Html.Raw(Model.Post.ShortContent)
@@ -30,7 +31,9 @@
                     </div>
                     <div class="col-sm-5 my-auto text-right"> 
                         <span class="text-muted">@(Model.Post.Date.ToString("d MMM yy"))</span>
+                        <div class="text-muted">@Model.Post.TimeToRead minute read</div>
                     </div>
+                    
                 </div>
             </div>
     </div>

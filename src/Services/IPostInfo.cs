@@ -2,6 +2,6 @@
 {
     public interface IPostInfo
     {
-        double GetTimeToRead(string postHtml);
+        int GetTimeToRead(string postHtml);
     }
 }
