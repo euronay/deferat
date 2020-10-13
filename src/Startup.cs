@@ -35,6 +35,7 @@ namespace Deferat
             services.AddSingleton<IFileReader<Post>, FileReader<Post>>();
             services.AddSingleton<IFileReader<Author>, FileReader<Author>>();
             services.AddSingleton<IFileReader<Settings>, FileReader<Settings>>();
+            services.AddSingleton<IPostInfo, PostInfo>();
             services.AddScoped<ISiteInfo>(ctx => new SiteInfo(
                 settingsDir,
                 ctx.GetService<ILogger<SiteInfo>>(), 
@@ -44,10 +45,12 @@ namespace Deferat
                 post => {
                     // TODO: tidy this mess up
                     var formatter = ctx.GetService<IFormatterService>();
+                    var postInfo = ctx.GetService<IPostInfo>();
                     post.Html = formatter.FixImages(post.Html, post.Id);;
                     post.Image = $"/posts/{post.Id}/{post.Image}";
                     post.ShortContent = formatter.CreateTruncatedContent(post.Html, 200);
                     post.Categories = post.Categories.OrderBy(c => c);
+                    post.TimeToRead = postInfo.GetTimeToRead(post.Html);
                     return post;
                 }, 
                 ctx.GetService<ILogger<Repository<Post>>>(), 

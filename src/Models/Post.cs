@@ -17,6 +17,7 @@ namespace Deferat.Models
         public bool Featured { get; set; }
         public bool Draft { get; set; }
         public string ShortContent { get; set; }
+        public long TimeToRead { get; set; }
     }
 
 }
