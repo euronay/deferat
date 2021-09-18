@@ -1,4 +1,4 @@
-name: Deploy
+name: Deploy to jamesnaylor.dev
 
 on: 
   push:
@@ -12,12 +12,15 @@ jobs:
 
     steps:
     - uses: actions/checkout@v1
-    - name: Setup .NET Core
+
+    - name: Set up .NET Core
       uses: actions/setup-dotnet@v1
       with:
         dotnet-version: '5.0.x'
+
     - name: Dotnet Publish
       run: dotnet publish src -c Release -o deploy
+      
     - name: Copy via ssh
       uses: garygrossgarten/github-action-scp@v0.5.3
       with:
@@ -26,6 +29,7 @@ jobs:
         host: ${{ secrets.REMOTE_HOST }}
         username: ${{ secrets.REMOTE_USER }}
         privateKey: ${{ secrets.REMOTE_SSH_KEY }}
+
     - name: Run SSH command
       uses: garygrossgarten/github-action-ssh@v0.3.0
       with:
