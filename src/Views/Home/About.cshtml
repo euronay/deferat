@@ -1,66 +1,62 @@
 ﻿@model AuthorListViewModel
 @{
-    ViewData["Title"] = $"About {Model.Settings.Title}";
+	ViewData["Title"] = $"About {Model.Settings.Title}";
 }
 
-<div class="jumbotron jumbotron-main text-white" style='@($"background:linear-gradient(to bottom, #1A202CFF, #1A202C77, #00000000),url(\"{Context.Request.Scheme}://{Context.Request.Host}/images/{Model.Settings.Hero}\")")' >
-    @if (!String.IsNullOrWhiteSpace(Model.Settings.HeroCredit)){
-            <div class="credit">
-                <i class="fa fa fa-image shadow"></i>
-                <div class="creditText">@Html.Raw(@Model.Settings.HeroCredit)</div>
-            </div>
-        }
+<div class="jumbotron jumbotron-main text-white" style='@($"background:linear-gradient(to bottom, #1A202CFF, #1A202C77, #00000000),url(\"{Context.Request.Scheme}://{Context.Request.Host}/images/{Model.Settings.Hero}\")")'>
+	@if (!string.IsNullOrWhiteSpace(Model.Settings.HeroCredit))
+	{
+		<div class="credit">
+			<i class="fa fa fa-image shadow"></i>
+			<div class="creditText">@Html.Raw(@Model.Settings.HeroCredit)</div>
+		</div>
+	}
 
-        <div class="container">
-            <div class="row">
-                <div class="col-sm-12">
-                    <p class="lead convert-emoji">
-                        <h1>About @Model.Settings.Title</h1>
-                    </p>
-                    </div>
-                </div>
-
-
-            </div>
-        </div>
+	<div class="container">
+		<div class="row">
+			<div class="col-sm-12">
+				<p class="lead convert-emoji">
+					<h1>About @Model.Settings.Title</h1>
+				</p>
+			</div>
+		</div>
+	</div>
+</div>
 
 
 <div class="container post">
+	@foreach (var author in Model.Authors)
+	{
+		<div class="row my-5">
+			<div class="col-sm-2">
 
-    
-    @foreach (var author in Model.Authors)
-    {
-        <div class="row my-5">
-            <div class="col-sm-2">
-                
-                <img class="card-img rounded-circle shadow" src="../@author.ImageUrl" />
+				<img class="card-img rounded-circle shadow" src="../@author.ImageUrl" />
 
-                <div class="text-left ml-4 mt-2">
-   
-                        @if (author.Twitter != null)
-                        {
-                            <a href="https://twitter.com/@author.Twitter/"><i class="fab fa-2x fa-fw fa-twitter"></i> @author.Twitter</a> <br />
-                        }
-                        @if (author.DevTo != null)
-                        {
-                            <a href="https://dev.to/@author.DevTo/"><i class="fab fa-2x fa-fw fa-dev"></i> @author.DevTo</a> <br />
-                        }
-                        @if (author.Github != null)
-                        {
-                            <a href="https://github.com/@author.Github/"><i class="fab fa-2x fa-fw fa-github"></i> @author.Github</a> <br />
-                        }
-                        @if (author.LinkedIn != null)
-                        {
-                        <a href="https://www.linkedin.com/in/@author.LinkedIn/"><i class="fab fa-2x fa-fw fa-linkedin"></i> @author.DisplayName</a> <br />
-                        }
-                    
-                </div>
-            </div>
+				<div class="text-left ml-4 mt-2">
 
-            <div class="col-sm-10">
-                <h2>@author.DisplayName</h2>
-                @Html.Raw(author.Html)
-            </div>
-        </div>
-    }
+					@if (author.Twitter != null)
+					{
+						<a href="https://twitter.com/@author.Twitter/"><i class="fab fa-2x fa-fw fa-twitter"></i> @author.Twitter</a> <br />
+					}
+					@if (author.DevTo != null)
+					{
+						<a href="https://dev.to/@author.DevTo/"><i class="fab fa-2x fa-fw fa-dev"></i> @author.DevTo</a> <br />
+					}
+					@if (author.Github != null)
+					{
+						<a href="https://github.com/@author.Github/"><i class="fab fa-2x fa-fw fa-github"></i> @author.Github</a> <br />
+					}
+					@if (author.LinkedIn != null)
+					{
+						<a href="https://www.linkedin.com/in/@author.LinkedIn/"><i class="fab fa-2x fa-fw fa-linkedin"></i> @author.DisplayName</a> <br />
+					}
+				</div>
+			</div>
+
+			<div class="col-sm-10">
+				<h2>@author.DisplayName</h2>
+				@Html.Raw(author.Html)
+			</div>
+		</div>
+	}
 </div>

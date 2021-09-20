@@ -1,10 +1,7 @@
 using Deferat.Models;
 using Markdig;
-using Microsoft.Extensions.Logging;
 using System;
-using System.Collections.Generic;
 using System.IO;
-using System.Linq;
 using YamlDotNet.Serialization;
 using YamlDotNet.Serialization.NamingConventions;
 
@@ -28,14 +25,14 @@ namespace Deferat.Services
             string metadata = string.Empty;
             string html = string.Empty;
 
-            using(var reader = File.OpenText(path))
+            using (var reader = File.OpenText(path))
             {
-                if(reader.ReadLine() != "---")
+                if (reader.ReadLine() != "---")
                     throw new FormatException("File was not in expected format");
-                
+
                 string line;
 
-                while((line = reader.ReadLine()) != "---")
+                while ((line = reader.ReadLine()) != "---")
                 {
                     metadata += line + "\r\n";
                 }
@@ -46,7 +43,7 @@ namespace Deferat.Services
             return (metadata, html);
         }
 
-        private T DeserializeMetadata(string metaData)
+        private static T DeserializeMetadata(string metaData)
         {
             var deserializer = new DeserializerBuilder()
                 .WithNamingConvention(new CamelCaseNamingConvention())
@@ -55,14 +52,14 @@ namespace Deferat.Services
             return deserializer.Deserialize<T>(new StringReader(metaData));
         }
 
-        private string ParseMarkdown(string markdown)
+        private static string ParseMarkdown(string markdown)
         {
             var pipeline = new MarkdownPipelineBuilder()
                 .UseAdvancedExtensions()
                 .UseAutoIdentifiers()
                 .Build();
-            string html = Markdown.ToHtml(markdown, pipeline);
-            return html;
+
+            return Markdown.ToHtml(markdown, pipeline);
         }
-    } 
+    }
 }

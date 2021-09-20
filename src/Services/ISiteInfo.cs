@@ -5,6 +5,6 @@ namespace Deferat.Services
     public interface ISiteInfo
     {
         string BasePath { get; }
-        Settings Settings {get;}
+        Settings Settings { get; }
     }
 }

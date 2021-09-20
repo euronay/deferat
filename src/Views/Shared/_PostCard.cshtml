@@ -1,40 +1,40 @@
 @model PostViewModel
 
 <div class="card my-3 shadow fancy-card">
-    <a asp-controller="Posts" asp-action="Read" asp-route-id="@Model.Post.Id">
-    <div class="card-img-wrapper shadow">
-        <img class="card-img-top img-fluid" src="@Model.Post.Image" />
-    </div>
-    </a>
-    <div class="card-body mt-1 convert-emoji">
-        <div class="tags">
-            @foreach (var tag in Model.Post.Categories)
-            {
-                <a asp-controller="Posts" asp-action="Index" asp-route-tag="@tag" 
-                   asp-route-pagenumber="1" class="badge badge-pill badge-primary">
-                    @tag
-                </a>
-            }
-        </div>
-        <h4 class="card-title"><a asp-controller="Posts" asp-action="Read" asp-route-id="@Model.Post.Id">@Model.Post.Title</a></h4>                    
-        <div>
-            @Html.Raw(Model.Post.ShortContent)
-        </div>
-    </div>
-        <div class="card-footer bg-darker">
-            <div class="container-fluid mx-0 px-0">
-                <div class="row">
-                    <div class="col-sm-7 my-auto text-left">
-                        <img class="avatar shadow" src="~/@Model.AuthorImage" /> 
-                        <span class="text-muted">@Model.AuthorName</span>
-                    </div>
-                    <div class="col-sm-5 my-auto text-right"> 
-                        <span class="text-muted">@(Model.Post.Date.ToString("d MMM yy"))</span>
-                        <div class="text-muted">@Model.Post.TimeToRead min read</div>
-                    </div>
-                    
-                </div>
-            </div>
-    </div>
-    
+	<a asp-controller="Posts" asp-action="Read" asp-route-id="@Model.Post.Id">
+		<div class="card-img-wrapper shadow">
+			<img class="card-img-top img-fluid" src="@Model.Post.Image" />
+		</div>
+	</a>
+	<div class="card-body mt-1 convert-emoji">
+		<div class="tags">
+			@foreach (var tag in Model.Post.Categories)
+			{
+				<a asp-controller="Posts" asp-action="Index" asp-route-tag="@tag"
+			   asp-route-pagenumber="1" class="badge badge-pill badge-primary">
+					@tag
+				</a>
+			}
+		</div>
+		<h4 class="card-title"><a asp-controller="Posts" asp-action="Read" asp-route-id="@Model.Post.Id">@Model.Post.Title</a></h4>
+		<div>
+			@Html.Raw(Model.Post.ShortContent)
+		</div>
+	</div>
+	<div class="card-footer bg-darker">
+		<div class="container-fluid mx-0 px-0">
+			<div class="row">
+				<div class="col-sm-7 my-auto text-left">
+					<img class="avatar shadow" src="~/@Model.AuthorImage" />
+					<span class="text-muted">@Model.AuthorName</span>
+				</div>
+				<div class="col-sm-5 my-auto text-right">
+					<span class="text-muted">@(Model.Post.Date.ToString("d MMM yy"))</span>
+					<div class="text-muted">@Model.Post.TimeToRead min read</div>
+				</div>
+
+			</div>
+		</div>
+	</div>
+
 </div>
