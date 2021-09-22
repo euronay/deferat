@@ -2,7 +2,9 @@
 
 A simple blog engine for displaying markdown formatted posts written in .NET Core.
 
-![](https://github.com/euronay/deferat/workflows/CI/badge.svg)
+![](https://github.com/euronay/deferat/workflows/Build/badge.svg)
+
+**⭐️ View a demo at [https://deferat.azurewebsites.net/](https://deferat.azurewebsites.net/) ⭐️**
 
 ### Usage
 

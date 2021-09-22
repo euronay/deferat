@@ -22,17 +22,19 @@ jobs:
       run: dotnet build src --configuration Release
 
     - name: dotnet publish
-      run: dotnet publish src -c Release -o ${{env.DOTNET_ROOT}}/deploy
+      run: dotnet publish src -c Release -o ${{env.DOTNET_ROOT}}/myapp
+
+    - name: Copy Demo Content
+      run: | 
+            cp -r ${{ github.workspace }}/Authors ${{env.DOTNET_ROOT}}/myapp
+            cp -r ${{ github.workspace }}/Posts ${{env.DOTNET_ROOT}}/myapp
+            cp -r ${{ github.workspace }}/Settings ${{env.DOTNET_ROOT}}/myapp
 
     - name: Upload artifact for deployment job
       uses: actions/upload-artifact@v2
       with:
         name: .net-app
-        path: |
-            ${{env.DOTNET_ROOT}}/deploy
-            ${{env.DOTNET_ROOT}}/Authors
-            ${{env.DOTNET_ROOT}}/Posts
-            ${{env.DOTNET_ROOT}}/Settings
+        path: ${{env.DOTNET_ROOT}}/myapp
 
   deploy:
     runs-on: ubuntu-latest
