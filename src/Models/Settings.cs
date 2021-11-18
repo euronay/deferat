@@ -1,5 +1,3 @@
-using Microsoft.AspNetCore.Server.Kestrel.Core;
-
 using YamlDotNet.Serialization;
 
 namespace Deferat.Models
@@ -12,8 +10,8 @@ namespace Deferat.Models
         public string Navbar { get; set; }
 
         public string Hero { get; set; }
-        public string HeroCredit {get; set;}
-        public string Privacy {get; set;}
+        public string HeroCredit { get; set; }
+        public string Privacy { get; set; }
         public string Id { get; set; }
         public string Html { get; set; }
     }

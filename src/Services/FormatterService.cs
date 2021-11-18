@@ -22,14 +22,14 @@ namespace Deferat.Services
             string text = string.Empty;
             foreach (HtmlNode node in htmlDoc.DocumentNode.ChildNodes)
             {
-                
+
                 text += node.InnerText;
                 shortDoc.DocumentNode.AppendChild(node);
 
                 _logger.LogInformation($"Text: {text}");
                 _logger.LogInformation($"Html {shortDoc.DocumentNode.OuterHtml}");
 
-                if(text.Length > maxLength || node.FirstChild?.Name == "img")
+                if (text.Length > maxLength || node.FirstChild?.Name == "img")
                     return shortDoc.DocumentNode.OuterHtml;
             }
 
@@ -45,7 +45,7 @@ namespace Deferat.Services
 
             var imageNodes = htmlDoc.DocumentNode.SelectNodes("//img");
 
-            if(imageNodes != null)
+            if (imageNodes != null)
             {
                 foreach (var imageNode in imageNodes)
                 {
@@ -58,7 +58,7 @@ namespace Deferat.Services
             }
 
             var tableNodes = htmlDoc.DocumentNode.SelectNodes("//table");
-            if(tableNodes != null)
+            if (tableNodes != null)
             {
                 foreach (var tableNode in tableNodes)
                 {

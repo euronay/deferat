@@ -1,6 +1,5 @@
-﻿using System.Collections.Generic;
-
-using Deferat.Models;
+﻿using Deferat.Models;
+using System.Collections.Generic;
 
 namespace Deferat.ViewModels
 {

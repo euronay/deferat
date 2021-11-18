@@ -1,6 +1,6 @@
-﻿using System;
+﻿using HtmlAgilityPack;
+using System;
 using System.Text.RegularExpressions;
-using HtmlAgilityPack;
 
 namespace Deferat.Services
 {

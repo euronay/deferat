@@ -1,38 +1,36 @@
 @model PostViewModel
 
 @{
-    ViewData["Title"] = $"{Model.Post.Title} - {Model.Settings.Title}";
-    ViewData["Description"] = @Model.Post.Description;
-    ViewData["Image"] = $"https://{Context.Request.Host}{Model.Post.Image}";
+	ViewData["Title"] = $"{Model.Post.Title} - {Model.Settings.Title}";
+	ViewData["Description"] = @Model.Post.Description;
+	ViewData["Image"] = $"https://{Context.Request.Host}{Model.Post.Image}";
 }
 
-<div class="jumbotron jumbotron-main text-white" style="background:linear-gradient(to bottom, #1A202CFF, #1A202C77, #00000000),url('@Model.Post.Image'); " >
+<div class="jumbotron jumbotron-main text-white" style="background:linear-gradient(to bottom, #1A202CFF, #1A202C77, #00000000),url('@Model.Post.Image'); ">
 
-    @if (!String.IsNullOrWhiteSpace(Model.Post.ImageCredit)){
-        <div class="credit">
-            <i class="fa fa fa-image shadow"></i>
-            <div class="creditText">@Html.Raw(@Model.Post.ImageCredit)</div>
-        </div>
-    }
+	@if (!string.IsNullOrWhiteSpace(Model.Post.ImageCredit))
+	{
+		<div class="credit">
+			<i class="fa fa fa-image shadow"></i>
+			<div class="creditText">@Html.Raw(@Model.Post.ImageCredit)</div>
+		</div>
+	}
 
-    <div class="container">
-            <div class="row">
-                <div class="col-sm-12 lead convert-emoji">
-                        <h1><a asp-controller="Posts" asp-action="Read" asp-route-id="@Model.Post.Id">@Model.Post.Title</a></h1>
-                    </div>
-                </div>
-
-
-            </div>
-        </div>
+	<div class="container">
+		<div class="row">
+			<div class="col-sm-12 lead convert-emoji">
+				<h1><a asp-controller="Posts" asp-action="Read" asp-route-id="@Model.Post.Id">@Model.Post.Title</a></h1>
+			</div>
+		</div>
+	</div>
+</div>
 
 <div class="bg-darker py-4">
-    <div class="container">
-        @await Html.PartialAsync("_PostInfo")
-    </div>
+	<div class="container">
+		@await Html.PartialAsync("_PostInfo")
+	</div>
 </div>
 
 <div class="container post">
-    @await Html.PartialAsync("_Post")
+	@await Html.PartialAsync("_Post")
 </div>
-

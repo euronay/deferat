@@ -1,11 +1,11 @@
+using Deferat.Models;
+using Deferat.Services;
+using Microsoft.Extensions.Logging;
 using System;
 using System.Collections.Generic;
 using System.IO;
 using System.Linq;
 using System.Linq.Expressions;
-using Deferat.Models;
-using Deferat.Services;
-using Microsoft.Extensions.Logging;
 
 namespace Deferat.Repository
 {
@@ -14,16 +14,15 @@ namespace Deferat.Repository
         private ILogger _logger;
         private IFileReader<T> _fileReader;
         private IQueryable<T> _dataSet;
-        private Func<T,T> _processor;
+        private Func<T, T> _processor;
 
         private IQueryable<T> Dataset
         {
             get
             {
                 if (_dataSet == null)
-                {
                     _dataSet = LoadData();
-                }
+
                 return _dataSet;
             }
             set
@@ -32,7 +31,7 @@ namespace Deferat.Repository
             }
         }
 
-        public string BasePath { get; private set;}
+        public string BasePath { get; private set; }
 
         public Repository(string path, Func<T, T> postProcessor, ILogger<Repository<T>> logger, IFileReader<T> fileReader)
         {
@@ -45,7 +44,9 @@ namespace Deferat.Repository
 
         public T Get(string id)
         {
-            // throw notinitializedexception?
+            if (string.IsNullOrWhiteSpace(id))
+                throw new ArgumentNullException(nameof(id), "id");
+
             return Dataset.FirstOrDefault(d => d.Id == id);
         }
 
@@ -72,19 +73,19 @@ namespace Deferat.Repository
             var directories = Directory.GetDirectories(BasePath);
 
             var dataList = new List<T>();
-            foreach(var directory in directories)
+            foreach (var directory in directories)
             {
                 var file = Directory.GetFiles(directory, "*.md").FirstOrDefault();
-                if(file == null)
+                if (file == null)
                     continue;
-                    
+
                 var dataFile = _fileReader.ReadFile(file);
                 // TODO - this is a bit messy - set the ID of the article to be the directory name
                 dataFile.Id = new FileInfo(directory).Name.ToLower();
-                if(_processor != null)
+                if (_processor != null)
                     dataFile = _processor(dataFile);
-                
-                dataList.Add(dataFile);                
+
+                dataList.Add(dataFile);
             }
 
             return dataList.AsQueryable();

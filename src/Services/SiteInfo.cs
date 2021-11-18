@@ -5,8 +5,8 @@ namespace Deferat.Services
 {
     public class SiteInfo : ISiteInfo
     {
-        private ILogger _logger;
-        private IFileReader<Settings> _fileReader;
+        private readonly ILogger _logger;
+        private readonly IFileReader<Settings> _fileReader;
 
         public string BasePath { get;}
         public Settings Settings {get;}

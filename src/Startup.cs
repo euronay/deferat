@@ -38,33 +38,34 @@ namespace Deferat
             services.AddSingleton<IPostInfo, PostInfo>();
             services.AddScoped<ISiteInfo>(ctx => new SiteInfo(
                 settingsDir,
-                ctx.GetService<ILogger<SiteInfo>>(), 
+                ctx.GetService<ILogger<SiteInfo>>(),
                 ctx.GetService<IFileReader<Settings>>()));
             services.AddScoped<IRepository<Post>>(ctx => new Repository<Post>(
-                postsDir, 
-                post => {
+                postsDir,
+                post =>
+                {
                     // TODO: tidy this mess up
                     var formatter = ctx.GetService<IFormatterService>();
                     var postInfo = ctx.GetService<IPostInfo>();
-                    post.Html = formatter.FixImages(post.Html, post.Id);;
+                    post.Html = formatter.FixImages(post.Html, post.Id); ;
                     post.Image = $"/posts/{post.Id}/{post.Image}";
                     post.ShortContent = formatter.CreateTruncatedContent(post.Html, 200);
                     post.Categories = post.Categories.OrderBy(c => c);
                     post.TimeToRead = postInfo.GetTimeToRead(post.Html);
                     return post;
-                }, 
-                ctx.GetService<ILogger<Repository<Post>>>(), 
+                },
+                ctx.GetService<ILogger<Repository<Post>>>(),
                 ctx.GetService<IFileReader<Post>>()));
             services.AddScoped<IRepository<Author>>(ctx => new Repository<Author>(authorDir,
-                author => author, 
-                ctx.GetService<ILogger<Repository<Author>>>(), 
+                author => author,
+                ctx.GetService<ILogger<Repository<Author>>>(),
                 ctx.GetService<IFileReader<Author>>()));
 
             services.AddScoped<IRepositoryContainer, RepositoryContainer>();
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
-        public void Configure(IApplicationBuilder app, ILogger<Startup> logger, IFormatterService formatter, 
+        public void Configure(IApplicationBuilder app, ILogger<Startup> logger, IFormatterService formatter,
            ISiteInfo siteInfo, IRepository<Post> postRepository, IRepository<Author> authorRepository)
         {
             if (_env.IsDevelopment())
@@ -78,33 +79,37 @@ namespace Deferat
             }
 
             logger.LogInformation($"Settings directory: {siteInfo.BasePath}");
-            if(!String.IsNullOrWhiteSpace(siteInfo.BasePath))
+            if (!string.IsNullOrWhiteSpace(siteInfo.BasePath))
             {
-                app.UseStaticFiles(new StaticFileOptions(){
+                app.UseStaticFiles(new StaticFileOptions()
+                {
                     FileProvider = new PhysicalFileProvider(Path.Combine(siteInfo.BasePath, "Images")),
                     RequestPath = "/images"
                 });
             }
 
             logger.LogInformation($"Posts directory: {postRepository.BasePath}");
-            if(!String.IsNullOrWhiteSpace(postRepository.BasePath))
+            if (!string.IsNullOrWhiteSpace(postRepository.BasePath))
             {
-                app.UseStaticFiles(new StaticFileOptions(){
+                app.UseStaticFiles(new StaticFileOptions()
+                {
                     FileProvider = new PhysicalFileProvider(postRepository.BasePath),
                     RequestPath = "/posts"
                 });
             }
 
             logger.LogInformation($"Authors directory: {authorRepository.BasePath}");
-            if(!String.IsNullOrWhiteSpace(authorRepository.BasePath))
+            if (!string.IsNullOrWhiteSpace(authorRepository.BasePath))
             {
-                app.UseStaticFiles(new StaticFileOptions(){
+                app.UseStaticFiles(new StaticFileOptions()
+                {
                     FileProvider = new PhysicalFileProvider(authorRepository.BasePath),
                     RequestPath = "/authors"
                 });
             }
 
-            app.UseStaticFiles(new StaticFileOptions(){
+            app.UseStaticFiles(new StaticFileOptions()
+            {
                 FileProvider = new PhysicalFileProvider(_env.WebRootPath),
                 RequestPath = ""
             });

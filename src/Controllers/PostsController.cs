@@ -1,4 +1,3 @@
-
 using Deferat.Models;
 using Deferat.Repository;
 using Deferat.Services;
@@ -13,8 +12,9 @@ namespace Deferat.Controllers
     {
         // use a multiple of 3 for best appearance
         private const int PostsPerPage = 6;
-        private IRepositoryContainer _repositories;
-        private Settings _settings;
+        private readonly IRepositoryContainer _repositories;
+        private readonly Settings _settings;
+
         public PostsController(IRepositoryContainer repositories, ISiteInfo siteInfo)
         {
             _repositories = repositories;
@@ -27,13 +27,13 @@ namespace Deferat.Controllers
         {
             var pageCount = 0;
 
-            var posts = _repositories.Posts.Get(filter: p => showDraft ? true: !p.Draft,  orderBy: list => list.OrderByDescending(post => post.Date));
-            if(!String.IsNullOrEmpty(tag))
+            var posts = _repositories.Posts.Get(filter: p => showDraft ? true : !p.Draft, orderBy: list => list.OrderByDescending(post => post.Date));
+            if (!string.IsNullOrEmpty(tag))
             {
                 posts = posts.Where(p => p.Categories.Contains(tag));
             }
 
-            if (!String.IsNullOrEmpty(filter))
+            if (!string.IsNullOrEmpty(filter))
             {
                 posts = posts.Where(p => p.Title.ToLower().Contains(filter.ToLower()));
             }
@@ -60,29 +60,28 @@ namespace Deferat.Controllers
         public ActionResult Read(string id)
         {
             var post = _repositories.Posts.Get(id.ToLower());
-            if(post == null)
-                return new StatusCodeResult(404);
-            
-            return View(CreatePostViewModel(post));
 
+            if (post == null)
+                return new StatusCodeResult(404);
+
+            return View(CreatePostViewModel(post));
         }
 
         private PostViewModel CreatePostViewModel(Post post)
         {
-            PostViewModel postViewModel = new PostViewModel()
+            var postViewModel = new PostViewModel()
             {
                 Post = post,
                 Settings = _settings
             };
 
             var author = _repositories.Authors.Get(post.Author.ToLower());
-            
+
             postViewModel.AuthorName = author != null ? author.DisplayName : "Anonymous";
             postViewModel.AuthorImage = author != null ? author.ImageUrl : "";
             postViewModel.AuthorTwitter = author != null ? author.Twitter : "";
 
-            return postViewModel;         
+            return postViewModel;
         }
-
     }
 }
