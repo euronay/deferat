@@ -4,8 +4,6 @@ A simple blog engine for displaying markdown formatted posts written in .NET Cor
 
 ![](https://github.com/euronay/deferat/workflows/Build/badge.svg)
 
-**⭐️ View a demo at [https://deferat.azurewebsites.net/](https://deferat.azurewebsites.net/) ⭐️**
-
 ### Usage
 
 Simply run:
@@ -18,23 +16,4 @@ Put your posts into the `Posts` directory, author details in `Authors` and then 
 
 To read how to format posts, read the [example post](/Posts/example-post/index.md)
 
-### In the wild
-
-The following blogs are using Deferat:
-
- - [jamesnaylor.dev](https://jamesnaylor.dev) (my personal blog)
-
-### Contributors ❤️ 
-
-Huge thanks to the following contibutors for fixing bugs and adding features:
-
-- [Michel van Os](https://github.com/michelvosje) 
-- [Damjan Dimitrov](https://github.com/dimitrov-d)
-- [kapnion](https://github.com/kapnion)
-- [Frej](https://github.com/FrejBjornsson)
-
-
-### Get Involved
-
-Raise an issue or submit a pull request! All contributions welcome🍸.
 
