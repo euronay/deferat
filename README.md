@@ -16,20 +16,9 @@ Put your posts into the `Posts` directory, author details in `Authors` and then 
 
 To read how to format posts, read the [example post](/Posts/example-post/index.md)
 ## 🚩 Example Post
-
----
-title: Example Post
-description: An example post showing you how to use Deferat
-author: Deferat
-date: 2019-01-01
-categories: 
-    - tests
-    - examples
-image: pineapple-supply-co-93822-unsplash.jpg
-imageCredit: Photo by Pineapple Supply Co. on Unsplash
-featured: true
-draft: false
----
+| Title        | Description                                    | Author  | Date       | Categories     | Image                                  | ImageCredit                               | Featured | Draft |
+|--------------|------------------------------------------------|---------|------------|----------------|----------------------------------------|-------------------------------------------|----------|-------|
+| Example Post | An example post showing you how to use Deferat | Deferat | 2019-01-01 | tests/examples | pineapple-supply-co-93822-unsplash.jpg | Photo by Pineapple Supply Co. on Unsplash | true     | false |
 
 ## 📪 It's an example post!
 
