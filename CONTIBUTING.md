@@ -17,3 +17,4 @@ Huge thanks to the following contibutors for fixing bugs and adding features:
 - [Damjan Dimitrov](https://github.com/dimitrov-d)
 - [kapnion](https://github.com/kapnion)
 - [Frej](https://github.com/FrejBjornsson)
+- [Hetal Kapadia](https://github.com/hetal-kapadia)
