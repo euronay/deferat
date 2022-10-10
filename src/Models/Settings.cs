@@ -14,5 +14,6 @@ namespace Deferat.Models
         public string Privacy { get; set; }
         public string Id { get; set; }
         public string Html { get; set; }
+        public string Copyright { get; set; }
     }
 }

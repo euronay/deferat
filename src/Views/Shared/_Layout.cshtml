@@ -1,4 +1,4 @@
-﻿@model ViewModelBase
+@model ViewModelBase
 
 <!DOCTYPE html>
 <html>
@@ -93,8 +93,8 @@
 	<!-- Page Footer-->
 	<footer class="footer mt-auto bg-darker pt-3">
 		<div class="container">
-			<span class="text-muted">Copyright © James Naylor 2019</span>
-			<a asp-area="" asp-controller="Home" asp-action="Privacy">Privacy</a>
+            <span class="text-muted">Copyright © @Model.Settings.Copyright @DateTime.Now.Year"</span>
+            <a asp-area="" asp-controller="Home" asp-action="Privacy">Privacy</a>
 		</div>
 	</footer>
 
