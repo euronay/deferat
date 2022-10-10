@@ -1,0 +1,7 @@
+.editorconfig
+.git*
+.vscode
+CONTRIBUTING.md
+Dockerfile
+Licence.md
+README.md
